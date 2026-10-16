@@ -1,0 +1,13 @@
+{
+  "name": "fascicul",
+  "version": "1.0.0",
+  "description": "Telefoane ↔ videoproiector: tablă colaborativă într-un singur fișier HTML (WebRTC, fără server)",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "start": "node fascicul-releu.js",
+    "test:relay": "node test/relay.test.js"
+  },
+  "engines": { "node": ">=16" }
+}

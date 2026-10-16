@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no,interactive-widget=resizes-content">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; media-src blob: mediastream:; connect-src http: https:; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#0b1020">
+<title>FASCICUL — telefoane ↔ videoproiector</title>
+<style>
+:root{--bg:#0b1020;--p:#141b34;--p2:#1c2547;--ln:#2b3769;--tx:#e8ecff;--mu:#93a0cf;--ac:#4cc9f0;--ac2:#f72585;--ok:#4ade80;--wa:#fbbf24}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;overscroll-behavior:none}
+.view{display:none;position:fixed;inset:0;overflow:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+.view.on{display:block}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:34px;letter-spacing:.22em;margin:.1em 0 0;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:19px;margin:.2em 0}
+.sub{color:var(--mu);margin:.2em 0 1em}
+.card{background:var(--p);border:1px solid var(--ln);border-radius:18px;padding:18px;margin:12px 0}
+.card.click{cursor:pointer;transition:.15s}.card.click:hover,.card.click:active{border-color:var(--ac);transform:translateY(-1px)}
+.card .ic{font-size:34px;float:left;margin:0 14px 0 0}
+.card p{margin:.3em 0 0;color:var(--mu)}
+summary{cursor:pointer;color:var(--tx)}
+details.card>summary{font-weight:600}
+code{background:#0d1330;border:1px solid var(--ln);border-radius:6px;padding:1px 6px;font-size:.92em;color:var(--tx)}
+.btn{background:var(--p2);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:11px 15px;font:inherit;cursor:pointer}
+.btn:hover{border-color:var(--ac)}.btn:disabled{opacity:.4}
+.btn.pri{background:var(--ac);color:#03131b;border-color:var(--ac);font-weight:700}
+.btn.sm{padding:7px 11px;font-size:14px}
+.btn.dng{border-color:#7a2b4a;color:#ffb3c9}
+input[type=text],textarea,input[type=url]{width:100%;background:#0d1330;color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:10px 12px;font:inherit}
+textarea{font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;resize:vertical;min-height:72px;word-break:break-all}
+label{display:block;color:var(--mu);font-size:14px;margin:10px 0 4px}
+ol.how{padding-left:20px;color:var(--mu)}ol.how b{color:var(--tx)}
+details{color:var(--mu);margin:10px 0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.stat{color:var(--wa);min-height:1.4em;margin:.5em 0}
+.stat.ok{color:var(--ok)}
+.foot{color:var(--mu);font-size:13px;text-align:center;margin-top:22px}
+.qrbox{background:#fff;border-radius:14px;padding:10px;display:flex;justify-content:center;margin:8px 0}
+.qrbox canvas{width:100%;max-width:min(520px,62vh);height:auto;image-rendering:pixelated}
+/* tabla */
+#board{position:fixed;inset:0;background:#05080f;display:none}
+#board.on{display:block}
+#cv{position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.chrome{position:absolute;z-index:5}
+#top{left:0;right:0;top:0;display:flex;gap:8px;align-items:center;padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) 8px max(10px,env(safe-area-inset-left));background:linear-gradient(#05080fcc,#05080f00);flex-wrap:wrap}
+#top .brand{font-weight:800;letter-spacing:.2em;font-size:14px;color:var(--ac)}
+#top .sp{flex:1}
+#tools{left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px max(8px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:linear-gradient(#05080f00,#05080fe6);overflow-x:auto;justify-content:safe center}
+.tb{flex:none;min-width:52px;background:#141b34e6;color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:6px 8px;font:inherit;font-size:20px;line-height:1.1;text-align:center;cursor:pointer}
+.tb small{display:block;font-size:10px;color:var(--mu);margin-top:2px}
+.tb.on{border-color:var(--ac);background:#173a52}
+.tb:disabled{opacity:.35}
+.dot{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid #ffffff22;align-self:center;cursor:pointer}
+.dot.on{border-color:#fff}
+.sep{flex:none;width:1px;background:var(--ln);margin:0 4px}
+#who{left:max(10px,env(safe-area-inset-left));bottom:84px;display:flex;gap:6px;flex-wrap:wrap;max-width:60vw}
+.chip{background:#141b34d9;border:1px solid var(--ln);border-radius:20px;padding:3px 10px;font-size:13px;display:flex;gap:6px;align-items:center}
+.chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+#cams{right:max(10px,env(safe-area-inset-right));top:56px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;max-width:70vw}
+.cam{position:relative;width:200px;border:2px solid var(--ac);border-radius:12px;overflow:hidden;background:#000;cursor:pointer}
+.cam.big{width:min(70vw,calc(70vh*16/9))}
+.cam video{display:block;width:100%}
+.cam span{position:absolute;left:6px;top:4px;background:#000a;border-radius:8px;padding:1px 8px;font-size:12px}
+body.pres .chrome:not(#cams){display:none}
+#reveal{position:absolute;z-index:6;left:0;top:0;width:54px;height:54px;background:none;border:0;color:#fff;opacity:.12;font-size:22px;display:none;cursor:pointer}
+body.pres #reveal{display:block}
+body.pres #cv{cursor:none}
+body.guest .hostonly{display:none!important}
+body.host .guestonly{display:none!important}
+#hint{position:absolute;left:0;right:0;top:46%;text-align:center;color:#ffffff40;font-size:22px;pointer-events:none;z-index:2;padding:0 30px}
+#rot{pointer-events:none;position:absolute;z-index:4;left:50%;transform:translateX(-50%);top:46px;background:#141b34e6;border:1px solid var(--ln);border-radius:14px;padding:4px 12px;font-size:13px;color:var(--mu);display:none}
+@media (orientation:portrait) and (max-width:700px){body.guest #rot{display:block}}
+/* ferestre */
+.modal{position:fixed;left:0;right:0;top:0;height:var(--vh,100%);z-index:20;background:#000a;display:none;align-items:flex-end;justify-content:center}
+.modal.on{display:flex}
+.sheet{background:var(--p);border:1px solid var(--ln);border-radius:20px 20px 0 0;width:min(760px,100%);max-height:94%;overflow:auto;padding:16px 16px max(20px,env(safe-area-inset-bottom))}
+@media (min-width:800px){.modal{align-items:center}.sheet{border-radius:20px}}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#1c2547;border:1px solid var(--ac);border-radius:14px;padding:9px 16px;z-index:50;display:none;max-width:90vw;text-align:center}
+#scn{position:fixed;inset:0;z-index:40;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+#scn.on{display:flex}
+#scn video{width:100%;max-height:70vh;object-fit:cover}
+#lost{position:fixed;inset:0;z-index:30;background:#05080ff0;display:none;align-items:center;justify-content:center;text-align:center;padding:20px}
+#lost.on{display:flex}
+#appr{position:fixed;left:50%;transform:translateX(-50%);top:max(10px,env(safe-area-inset-top));z-index:25;display:none;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;background:#1c2547;border:1px solid var(--ac);border-radius:16px;padding:10px 14px;box-shadow:0 8px 30px #000a;max-width:94vw}
+</style>
+</head>
+<body>
+
+<!-- ============ ACASĂ ============ -->
+<div id="home" class="view on"><div class="wrap">
+  <h1>FASCICUL</h1>
+  <p class="sub">Telefoane ↔ videoproiector. Împerechere directă, fără cont, fără urmărire, fără servere terțe. Un singur fișier.</p>
+
+  <div class="card click" id="goHost"><div class="ic">📽️</div><h2>Ecran (videoproiector)</h2><p>Deschide aici pe dispozitivul legat la videoproiector (laptop, TV-box, tabletă sau telefon prin cablu / cast). Primește telefoanele și afișează conținutul comun.</p></div>
+  <div class="card click" id="goGuest"><div class="ic">📱</div><h2>Telefon (participant)</h2><p>Pentru fiecare telefon. Desenează, scrie note, trimite poze și camera live direct pe ecran, în colaborare cu ceilalți.</p></div>
+
+  <div class="card">
+    <h2>Cum se conectează</h2>
+    <ol class="how">
+      <li>Toate dispozitivele în <b>aceeași rețea</b> (Wi‑Fi sau hotspotul unui telefon).</li>
+      <li>Pe dispozitivul de la proiector alege <b>Ecran</b>. Dacă aplicația rulează de pe un <b>releu</b> (vezi mai jos) sau de pe o adresă web, apare un cod QR.</li>
+      <li>Pe telefoane scanează codul cu aplicația <b>Cameră</b>: se deschide pagina și telefonul se alătură singur. Ecranul cere aprobare pentru fiecare telefon nou.</li>
+      <li>Fără releu și fără adresă web: <b>împerechere manuală</b> (două coduri QR, o dată pentru fiecare telefon). Telefonul trebuie să aibă fișierul aplicației.</li>
+    </ol>
+  </div>
+
+  <details class="card"><summary>Releu pe telefonul-hotspot (Android + Termux) — recomandat</summary>
+    <p>Telefonul care face hotspot rulează și releul de semnalizare (compatibil ntfy) și <b>servește chiar aplicația</b>: celelalte dispozitive o deschid de la adresa lui, fără să primească fișiere. Merge doar pe Android (iPhone nu poate rula Node).</p>
+    <ol class="how">
+      <li>Instalează <b>Termux</b> (din F‑Droid). În Termux: <code>pkg install nodejs</code>, apoi <code>termux-setup-storage</code>.</li>
+      <li>Descarcă cele două fișiere cu butoanele de mai jos și pune-le în <b>Descărcări</b>: <code>fascicul-releu.js</code> și <code>fascicul.html</code>.</li>
+      <li>Pornește <b>hotspotul</b> cu parolă (WPA2).</li>
+      <li>În Termux: <code>cd ~/storage/downloads && termux-wake-lock && node fascicul-releu.js</code>. Releul afișează adresa (de obicei <code>http://192.168.43.1:8080</code>) și o reafișează dacă se schimbă.</li>
+      <li>Pe dispozitivul de la proiector, conectat la acel hotspot, deschide adresa și alege <b>Ecran</b>.</li>
+    </ol>
+    <div class="row"><button class="btn sm" id="relayDl">⬇ fascicul-releu.js</button><button class="btn sm" id="appDl">⬇ fascicul.html</button><button class="btn sm" id="relayCp">Copiază scriptul releului</button></div>
+    <p>Pe adrese <b>http</b> (releul local) browserele blochează camera foto: scanarea QR din aplicație și camera live nu funcționează acolo; tabla, notele, pozele din galerie și laserul merg. Scanarea cu aplicația Cameră a telefonului merge oricum.</p>
+  </details>
+
+  <details class="card"><summary>Setări avansate (opțional)</summary>
+    <label for="cfgStun">Server STUN propriu (rețele diferite / NAT). Gol = doar rețea locală, fără terți.</label>
+    <input type="text" id="cfgStun" placeholder="stun:stun.exemplu.ro:3478" autocomplete="off">
+    <label for="cfgNtfy">Releu / server ntfy propriu (când aplicația rulează din fișier local)</label>
+    <input type="url" id="cfgNtfy" placeholder="http://192.168.43.1:8080" autocomplete="off">
+    <div class="row"><button class="btn sm" id="cfgSave">Salvează</button><button class="btn sm" id="cfgUnmask">Conexiunea nu merge? Dezvăluie adresa locală</button></div>
+    <p class="sub" style="margin:0">Pe ntfy/releu circulă doar coduri de conectare, nu conținutul tablei. Conținutul merge direct între dispozitive.</p>
+  </details>
+
+  <details class="card"><summary>Note tehnice</summary>
+    <p>Camera, scanarea QR și copierea în clipboard au nevoie de <b>context sigur</b>: fișier deschis local sau pagină HTTPS. Scanarea din aplicație folosește <code>BarcodeDetector</code> (Chrome / Edge pe Android și macOS); în alte browsere scanează cu aplicația Cameră sau lipește textul codului. Dacă rețeaua izolează clienții între ei (Wi‑Fi de oaspeți), folosește hotspotul unui telefon. Prescurtări de la tastatură pe ecran: Ctrl+Z anulează, Delete șterge selecția, Esc iese din modul Prezentare.</p>
+  </details>
+  <div class="foot">fără frontiere · trade-free · totul rămâne între dispozitivele voastre</div>
+</div></div>
+
+<!-- ============ TELEFON: ALĂTURARE ============ -->
+<div id="join" class="view"><div class="wrap">
+  <h1 style="font-size:26px">TELEFON</h1>
+  <div id="jStep1">
+    <label for="nm">Numele tău pe ecran</label>
+    <input type="text" id="nm" maxlength="24" autocomplete="off">
+    <div class="card">
+      <h2>Codul de pe ecran</h2>
+      <p class="sub" style="margin:0">Cel mai simplu: scanează codul QR de pe ecran cu aplicația <b>Cameră</b> a telefonului.</p>
+      <div class="row"><button class="btn pri" id="scanO">📷 Scanează aici</button><button class="btn" id="demoBtn">Demo local</button></div>
+      <label for="offIn">…sau lipește codul, adresa ori codul camerei</label>
+      <textarea id="offIn" placeholder="F1… sau http://…/#r=… sau fsc…"></textarea>
+      <div class="row"><button class="btn" id="offGo">Continuă</button></div>
+    </div>
+  </div>
+  <div id="jStep2" style="display:none">
+    <div class="card">
+      <h2>Arată răspunsul ecranului</h2>
+      <p class="sub">Pe ecran apasă «Scanează cu camera» și îndreapt-o spre acest cod, sau trimite-i textul de mai jos și lipește-l acolo.</p>
+      <div class="qrbox"><canvas id="qrA"></canvas></div>
+      <textarea id="codeA" readonly></textarea>
+      <div class="row"><button class="btn sm" id="cpA">Copiază</button><button class="btn sm" id="shA">Trimite…</button></div>
+    </div>
+  </div>
+  <div class="stat" id="jStat"></div>
+  <div class="row"><button class="btn sm" id="jBack">← Înapoi</button></div>
+</div></div>
+
+<!-- ============ TABLA ============ -->
+<div id="board">
+  <canvas id="cv"></canvas>
+  <button id="reveal" title="Arată comenzile" aria-label="Arată comenzile">⋯</button>
+  <div id="hint">Tabla e goală — desenează, adaugă note sau imagini de pe telefon</div>
+  <div id="rot">↻ Rotește telefonul în landscape pentru mai mult spațiu</div>
+  <div id="top" class="chrome">
+    <span class="brand">FASCICUL</span><span id="topSt" style="color:var(--mu);font-size:14px"></span><span class="sp"></span>
+    <button class="btn sm hostonly" id="bInv">📱 Invită telefon</button>
+    <button class="btn sm hostonly" id="bLock">🔓 Liber</button>
+    <button class="btn sm hostonly" id="bTheme" title="Fundal alb / negru">🌓 Fundal</button>
+    <button class="btn sm hostonly" id="bSave" title="Salvează sesiunea într-un fișier">💾 Sesiune</button>
+    <button class="btn sm hostonly" id="bOpen" title="Deschide o sesiune salvată">📂</button>
+    <button class="btn sm" id="bFull" title="Ecran complet">⛶</button>
+    <button class="btn sm hostonly" id="bPres">👁 Prezentare</button>
+    <button class="btn sm guestonly" id="bLeave">Ieși</button>
+  </div>
+  <div id="who" class="chrome"></div>
+  <div id="cams" class="chrome"></div>
+  <div id="tools" class="chrome">
+    <button class="tb" data-t="pen">✏️<small>Creion</small></button>
+    <button class="tb" data-t="note">🗒️<small>Notă</small></button>
+    <button class="tb" data-t="move">✋<small>Mută</small></button>
+    <button class="tb" data-t="erase">🧽<small>Șterge</small></button>
+    <button class="tb" data-t="laser">🔴<small>Laser</small></button>
+    <button class="tb" data-t="view">🔍<small>Vedere</small></button>
+    <span class="sep"></span>
+    <span id="dots" style="display:flex;gap:6px"></span>
+    <button class="tb" id="bPw">◉<small>Grosime</small></button>
+    <span class="sep"></span>
+    <button class="tb" id="bImg">🖼️<small>Imagine</small></button>
+    <button class="tb guestonly" id="bCam">📷<small>Cameră</small></button>
+    <button class="tb guestonly" id="bFlip" style="display:none">🔄<small>Întoarce</small></button>
+    <button class="tb" id="bBig" style="display:none">＋<small>Mărește</small></button>
+    <button class="tb" id="bSml" style="display:none">－<small>Micșorează</small></button>
+    <button class="tb" id="bDel" style="display:none">✖<small>Elimină</small></button>
+    <button class="tb" id="bUndo">↶<small>Anulează</small></button>
+    <button class="tb" id="bFit">⌖<small>Potrivește</small></button>
+    <button class="tb" id="bPng">💾<small>PNG</small></button>
+    <button class="tb hostonly" id="bClr">🗑️<small>Golește</small></button>
+  </div>
+</div>
+<input type="file" id="fi" accept="image/*" multiple hidden>
+<input type="file" id="fj" accept="application/json,.json" hidden>
+
+<!-- aprobare alăturare (ecran) -->
+<div id="appr"><span id="apprT"></span>
+  <button class="btn sm pri" id="apprYes">Acceptă</button>
+  <button class="btn sm" id="apprAll">Acceptă toți</button>
+  <button class="btn sm dng" id="apprNo">Respinge</button>
+</div>
+
+<!-- ============ INVITĂ (ECRAN) ============ -->
+<div id="inv" class="modal"><div class="sheet">
+  <div class="row"><h2 style="flex:1;margin:0">Conectează telefoane</h2><button class="btn sm" id="invClose">Închide</button></div>
+  <div id="rvBox" class="card" style="display:none">
+    <h2 id="rvTitle">Cameră automată</h2>
+    <p class="sub" style="margin:0">Scanează cu aplicația <b>Cameră</b> a telefonului: se deschide pagina și telefonul se alătură singur. Poți închide această fereastră după ce s-au conectat toți.</p>
+    <div class="qrbox"><canvas id="qrR"></canvas></div>
+    <div class="row"><b>Cod cameră:</b> <code id="rvCode"></code></div>
+    <textarea id="rvUrl" readonly style="min-height:46px"></textarea>
+    <div class="row"><button class="btn sm" id="rvCp">Copiază adresa</button><button class="btn sm" id="rvSh">Trimite…</button><button class="btn sm" id="rvNew">↻ Cameră nouă</button></div>
+    <label style="display:flex;gap:8px;align-items:center;margin:6px 0 0"><input type="checkbox" id="rvAppr" checked> Cere aprobarea mea pentru fiecare telefon nou</label>
+  </div>
+  <details class="card" id="manualBox" open><summary>Împerechere manuală (fără releu)</summary>
+    <h2>1 · Codul ecranului</h2>
+    <div class="qrbox"><canvas id="qrO"></canvas></div>
+    <textarea id="codeO" readonly></textarea>
+    <div class="row"><button class="btn sm" id="cpO">Copiază</button><button class="btn sm" id="shO">Trimite…</button><button class="btn sm" id="newO">↻ Cod nou</button></div>
+    <h2>2 · Răspunsul telefonului</h2>
+    <div class="row"><button class="btn pri" id="scanA">📷 Scanează cu camera</button></div>
+    <label for="ansIn">…sau lipește codul de răspuns</label>
+    <textarea id="ansIn" placeholder="F1…"></textarea>
+    <div class="row"><button class="btn" id="ansGo">Conectează</button></div>
+  </details>
+  <div class="stat" id="invStat"></div>
+  <div id="invList"></div>
+  <p class="sub">Demo pe același calculator: deschide fișierul într-o a doua filă, alege Telefon → «Demo local».</p>
+</div></div>
+
+<!-- notă -->
+<div id="dlg" class="modal"><div class="sheet">
+  <h2>Notă</h2>
+  <textarea id="dlgT" maxlength="400" style="min-height:110px;font:16px system-ui" placeholder="Scrie aici…"></textarea>
+  <div class="row"><button class="btn pri" id="dlgOk">Pune pe tablă</button><button class="btn" id="dlgNo">Anulează</button><button class="btn dng" id="dlgDel">Șterge</button></div>
+</div></div>
+
+<div id="scn"><video id="scnV" playsinline muted></video><div id="scnT" style="color:#fff;padding:0 16px;text-align:center">Îndreaptă camera spre codul QR…</div><button class="btn" id="scnX">Renunță</button></div>
+<div id="lost"><div><h2 id="lostT">Conexiune pierdută</h2><p class="sub" id="lostS">Revino la început pentru a te reconecta.</p><button class="btn pri" id="lostBtn" onclick="location.reload()">Reîncarcă</button></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script type="text/plain" id="relaySrc">#!/usr/bin/env node
+// FASCICUL — releu de semnalizare compatibil ntfy (subset). Fără dependențe.
+//
+// Pornire (Termux pe telefonul-hotspot):   node fascicul-releu.js
+// Variabile:  PORT=8080  HOST=0.0.0.0  ALLOW_ORIGIN=https://exemplu.ro,https://alt.ro
+//
+// Dacă fascicul.html e în același folder, releul îl servește la adresa de bază,
+// iar telefoanele nu mai au nevoie să primească fișierul separat.
+// Releul NU stochează nimic și NU vede conținutul tablei: doar transmite
+// mesajele scurte de conectare (coduri SDP) între cei din aceeași cameră.
+'use strict';
+const http = require('http'), fs = require('fs'), path = require('path'), os = require('os');
+
+const PORT = +process.env.PORT || 8080;
+const HOST = process.env.HOST || '0.0.0.0';
+const APP = path.join(__dirname, 'fascicul.html');
+const EXTRA_ORIGINS = (process.env.ALLOW_ORIGIN || '').split(',').map(s => s.trim()).filter(Boolean);
+
+const MAX_BODY = 16384;      // octeți per mesaj
+const MAX_SUBS = 64;         // conexiuni SSE simultane, în total
+const MAX_TOPICS = 16;       // camere simultane
+const RATE_N = 120, RATE_MS = 10000;   // cereri / IP / fereastră
+const TOPIC_RE = /^[A-Za-z0-9_-]{6,64}$/;
+
+const topics = new Map();    // topic -> Set<res>
+let subCount = 0;
+const hits = new Map();      // ip -> [timestamps]
+
+const ipOf = req => String(req.socket.remoteAddress || '').replace(/^::ffff:/, '');
+function limited(ip) {
+  const now = Date.now(), a = (hits.get(ip) || []).filter(t => now - t < RATE_MS);
+  a.push(now); hits.set(ip, a);
+  return a.length > RATE_N;
+}
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, a] of hits) if (!a.length || now - a[a.length - 1] > RATE_MS) hits.delete(ip);
+}, 30000).unref();
+
+// Originea cererii: fișier local ("null"), același releu sau adrese din rețele private.
+function originOk(origin, req) {
+  if (!origin) return true;
+  if (origin === 'null') return true;
+  if (EXTRA_ORIGINS.includes(origin)) return true;
+  try {
+    const u = new URL(origin), h = u.hostname;
+    if (req.headers.host && u.host === req.headers.host) return true;
+    if (h === 'localhost' || h.endsWith('.local')) return true;
+    const m = h.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+    if (m) {
+      const a = +m[1], b = +m[2];
+      return a === 10 || a === 127 || (a === 192 && b === 168) || (a === 172 && b >= 16 && b <= 31) || (a === 169 && b === 254) || (a === 100 && b >= 64 && b <= 127);
+    }
+  } catch (e) {}
+  return false;
+}
+
+function send(res, code, type, body, extra) {
+  res.writeHead(code, Object.assign({
+    'Content-Type': type, 'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'no-referrer'
+  }, extra || {}));
+  res.end(body);
+}
+
+function handle(req, res) {
+  const origin = req.headers.origin;
+  if (!originOk(origin, req)) return send(res, 403, 'text/plain', 'origin refuzat');
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Private-Network', 'true');
+  }
+  if (req.method === 'OPTIONS') { res.writeHead(204); return res.end(); }
+
+  const ip = ipOf(req);
+  let p;
+  try { p = new URL(req.url, 'http://x').pathname; } catch (e) { return send(res, 400, 'text/plain', 'url invalid'); }
+
+  if (p === '/fsc-health') return send(res, 200, 'text/plain', 'fascicul-relay');
+
+  if (p === '/' || p === '/fascicul.html') {
+    if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'text/plain', '');
+    fs.readFile(APP, (err, buf) => {
+      if (err) return send(res, 404, 'text/plain; charset=utf-8', 'Pune fascicul.html lângă fascicul-releu.js');
+      send(res, 200, 'text/html; charset=utf-8', req.method === 'HEAD' ? '' : buf);
+    });
+    return;
+  }
+
+  const m = p.match(/^\/([^/]+)(\/sse)?$/);
+  if (!m || !TOPIC_RE.test(m[1])) return send(res, 404, 'text/plain', '');
+  const topic = m[1];
+  if (limited(ip)) return send(res, 429, 'text/plain', 'prea multe cereri');
+
+  // abonare (Server-Sent Events), ca la ntfy
+  if (req.method === 'GET' && m[2]) {
+    if (subCount >= MAX_SUBS || (!topics.has(topic) && topics.size >= MAX_TOPICS)) return send(res, 503, 'text/plain', 'plin');
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream', 'Cache-Control': 'no-store',
+      'Connection': 'keep-alive', 'X-Accel-Buffering': 'no', 'X-Content-Type-Options': 'nosniff'
+    });
+    res.write('data: {"event":"open"}\n\n');
+    if (!topics.has(topic)) topics.set(topic, new Set());
+    topics.get(topic).add(res);
+    subCount++;
+    const keep = setInterval(() => { try { res.write(': ping\n\n'); } catch (e) {} }, 25000);
+    let closed = false;
+    const done = () => {
+      if (closed) return; closed = true;
+      clearInterval(keep); subCount--;
+      const s = topics.get(topic);
+      if (s) { s.delete(res); if (!s.size) topics.delete(topic); }
+    };
+    req.on('close', done); res.on('close', done); res.on('error', done);
+    return;
+  }
+
+  // publicare
+  if (req.method === 'POST') {
+    let body = '', over = false;
+    req.on('data', c => {
+      if (over) return;
+      body += c;
+      if (body.length > MAX_BODY) { over = true; send(res, 413, 'text/plain', 'prea mare'); req.destroy(); }
+    });
+    req.on('end', () => {
+      if (over) return;
+      const ev = JSON.stringify({
+        id: Date.now().toString(36), time: Math.floor(Date.now() / 1000),
+        event: 'message', topic, message: body, ip   // ip = adresa expeditorului, văzută de releu
+      });
+      const subs = topics.get(topic);
+      if (subs) for (const r of subs) {
+        try { r.write('data: ' + ev + '\n\n'); if (r.writableLength > 1048576) r.destroy(); } catch (e) {}
+      }
+      send(res, 200, 'application/json', ev);
+    });
+    return;
+  }
+  send(res, 405, 'text/plain', '');
+}
+const server = http.createServer((req, res) => {
+  try { handle(req, res); }
+  catch (e) { console.error('eroare cerere:', e.message); try { send(res, 500, 'text/plain', ''); } catch (x) {} }
+});
+
+server.on('clientError', (e, sock) => { try { sock.destroy(); } catch (x) {} });
+function addrs() {
+  try {
+    const out = [];
+    for (const l of Object.values(os.networkInterfaces()))
+      for (const i of l || []) if ((i.family === 'IPv4' || i.family === 4) && !i.internal) out.push(i.address);
+    return out;
+  } catch (e) { return null; }   // ex. Termux pe Android 11+ poate refuza listarea
+}
+let lastA = null;
+function announce() {
+  const a = addrs();
+  if (a === null) { if (lastA === null) { lastA = 'n/a'; console.log('  (nu pot lista adresele aici — află-o cu:  ip addr  sau  ifconfig)'); } return; }
+  const k = a.join(',');
+  if (k === lastA) return;
+  lastA = k;
+  if (!a.length) { console.log('  (nicio rețea activă încă — pornește hotspotul)'); return; }
+  console.log('Adrese pentru ecran / telefoane:');
+  a.forEach(x => console.log('  http://' + x + ':' + PORT));
+}
+server.on('error', e => { console.error('Nu pot porni releul:', e.message); process.exit(1); });
+server.listen(PORT, HOST, () => {
+  console.log('FASCICUL releu pornit pe portul ' + PORT + '.');
+  announce();
+  setInterval(announce, 5000).unref();
+  console.log(fs.existsSync(APP) ? 'Servesc și fascicul.html de la adresa de bază.' : 'fascicul.html nu e în acest folder — doar semnalizare.');
+});
+process.on('uncaughtException', e => console.error('eroare neprevăzută:', e && e.message));
+for (const s of ['SIGINT', 'SIGTERM']) process.on(s, () => process.exit(0));
+</script>
+<script>
+'use strict';
+/* ================= utilitare ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const W=1600,H=900, COLORS=['#ffffff','#ffd166','#ef476f','#06d6a0','#4cc9f0','#b388ff'];
+const MAX_OBJS=600, MAX_IMGS=40, MAX_PTS=4000, MAX_IMG_CHUNKS=60, STROKE_SPLIT=3600;
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
+const num=(v,d=0)=>Number.isFinite(+v)?+v:d, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const col=c=>/^#[0-9a-f]{3,8}$/i.test(c)?c:'#ffffff';
+const str=(s,n)=>String(s==null?'':s).slice(0,n);
+let toastT;function toast(m,ms=2800){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',ms)}
+const ls={get(k){try{return localStorage.getItem(k)||''}catch(e){return ''}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const S={role:null,name:'',id:uid(),color:COLORS[4],tool:'pen',pw:8,locked:false,theme:'dark',
+  objs:new Map(),pend:new Map(),mine:[],links:new Map(),slots:new Map(),peers:[],lasers:new Map(),sel:null,
+  pc:null,link:null,pending:null,rv:new Map(),pcount:0,camStream:null,camSender:null,facing:'environment',
+  apprQ:[],autoAccept:false,relay:'',joinUrl:'',entered:false,lostFlag:false,kicked:false,lastRx:0,rvClose:null,rcT:0,rcN:0};
+const iceCfg=()=>{const u=ls.get('fsc_stun').trim();return{iceServers:u?[{urls:u}]:[]}};
+const ntfyBase=()=>ls.get('fsc_ntfy').trim().replace(/\/+$/,'');
+const isWeb=()=>/^https?:$/.test(location.protocol);
+function show(id){$$('.view').forEach(v=>v.classList.toggle('on',v.id===id));$('#board').classList.remove('on')}
+function wake(){try{navigator.wakeLock&&navigator.wakeLock.request('screen').catch(()=>{})}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.role)wake()});
+async function copyTxt(t){try{await navigator.clipboard.writeText(t);toast('Copiat')}catch(e){toast('Selectează textul și copiază-l manual')}}
+async function shareTxt(t){if(navigator.share){try{await navigator.share({text:t})}catch(e){}}else copyTxt(t)}
+function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+// tastatura virtuală: ferestrele rămân deasupra ei
+if(window.visualViewport){const f=()=>document.documentElement.style.setProperty('--vh',visualViewport.height+'px');visualViewport.addEventListener('resize',f);f()}
+
+/* ================= QR (encoder compact, byte mode, ECC L/M) ================= */
+const QR=(()=>{
+const ECC=[[-1,7,10,15,20,26,18,20,24,30,18,20,24,26,30,22,24,28,30,28,28,28,28,30,30,26,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],
+[-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28]];
+const NB=[[-1,1,1,1,1,1,2,2,2,2,4,4,4,4,4,6,6,6,6,7,8,8,9,9,10,12,12,12,13,14,15,16,17,18,19,19,20,21,22,24,25],
+[-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49]];
+const FB=[1,0]; // biți format: L=1, M=0
+const raw=v=>{let r=(16*v+128)*v+64;if(v>=2){const n=(v/7|0)+2;r-=(25*n-10)*n-55;if(v>=7)r-=36}return r};
+const cap=(v,l)=>(raw(v)>>3)-ECC[l][v]*NB[l][v];
+const gm=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z};
+const gen=d=>{const r=new Array(d).fill(0);r[d-1]=1;let root=1;for(let i=0;i<d;i++){for(let j=0;j<d;j++){r[j]=gm(r[j],root);if(j+1<d)r[j]^=r[j+1]}root=gm(root,2)}return r};
+const rem=(data,g)=>{const r=g.map(()=>0);for(const b of data){const f=b^r.shift();r.push(0);g.forEach((c,i)=>r[i]^=gm(c,f))}return r};
+function make(text){
+  const bytes=[...new TextEncoder().encode(text)];
+  const fit=l=>{for(let v=1;v<=40;v++){if(4+(v<10?8:16)+bytes.length*8<=cap(v,l)*8)return v}return 0};
+  const vm=fit(1),vl=fit(0);let l,v;
+  if(vm&&vm<=20){l=1;v=vm}else if(vl){l=0;v=vl}else throw new Error('Cod prea lung pentru QR');
+  const bits=[];const put=(x,n)=>{for(let i=n-1;i>=0;i--)bits.push((x>>>i)&1)};
+  put(4,4);put(bytes.length,v<10?8:16);bytes.forEach(b=>put(b,8));
+  const cb=cap(v,l)*8;put(0,Math.min(4,cb-bits.length));while(bits.length%8)bits.push(0);
+  for(let p=0xEC;bits.length<cb;p^=0xEC^0x11)put(p,8);
+  const data=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=b<<1|bits[i+j];data.push(b)}
+  // blocuri + ECC
+  const nb=NB[l][v],be=ECC[l][v],rc=raw(v)>>3,ns=nb-rc%nb,sl=(rc/nb|0),g=gen(be),blocks=[];
+  for(let i=0,k=0;i<nb;i++){const dl=sl-be+(i<ns?0:1);const d=data.slice(k,k+dl);k+=dl;const e=rem(d,g);if(i<ns)d.push(0);blocks.push(d.concat(e))}
+  const all=[];for(let i=0;i<blocks[0].length;i++)blocks.forEach((b,j)=>{if(i!==sl-be||j>=ns)all.push(b[i])});
+  // matrice
+  const size=v*4+17,m=Array.from({length:size},()=>new Array(size).fill(false)),f=Array.from({length:size},()=>new Array(size).fill(false));
+  const set=(x,y,d)=>{m[y][x]=d;f[y][x]=true};
+  for(let i=0;i<size;i++){set(6,i,i%2===0);set(i,6,i%2===0)}
+  const finder=(x,y)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const d=Math.max(Math.abs(dx),Math.abs(dy)),xx=x+dx,yy=y+dy;if(xx>=0&&xx<size&&yy>=0&&yy<size)set(xx,yy,d!==2&&d!==4)}};
+  finder(3,3);finder(size-4,3);finder(3,size-4);
+  const ap=[];if(v>1){const n=(v/7|0)+2,st=v===32?26:Math.ceil((v*4+4)/(n*2-2))*2;ap.push(6);for(let p=size-7;ap.length<n;p-=st)ap.splice(1,0,p)}
+  const na=ap.length;
+  for(let i=0;i<na;i++)for(let j=0;j<na;j++){if((i===0&&j===0)||(i===0&&j===na-1)||(i===na-1&&j===0))continue;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)set(ap[i]+dx,ap[j]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}
+  const fmt=mk=>{const d=FB[l]<<3|mk;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=(d<<10|r)^0x5412,bt=i=>((b>>>i)&1)!==0;
+    for(let i=0;i<=5;i++)set(8,i,bt(i));set(8,7,bt(6));set(8,8,bt(7));set(7,8,bt(8));for(let i=9;i<15;i++)set(14-i,8,bt(i));
+    for(let i=0;i<8;i++)set(size-1-i,8,bt(i));for(let i=8;i<15;i++)set(8,size-15+i,bt(i));set(8,size-8,true)};
+  fmt(0);
+  if(v>=7){let r=v;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=v<<12|r;for(let i=0;i<18;i++){const bt=((b>>>i)&1)!==0,a=size-11+i%3,c=(i/3|0);set(a,c,bt);set(c,a,bt)}}
+  // codewords
+  for(let i=0,right=size-1;right>=1;right-=2){if(right===6)right=5;for(let vert=0;vert<size;vert++)for(let j=0;j<2;j++){const x=right-j,up=((right+1)&2)===0,y=up?size-1-vert:vert;if(!f[y][x]&&i<all.length*8){m[y][x]=((all[i>>>3]>>>(7-(i&7)))&1)!==0;i++}}}
+  const mask=k=>{for(let y=0;y<size;y++)for(let x=0;x<size;x++){if(f[y][x])continue;let inv;switch(k){case 0:inv=(x+y)%2===0;break;case 1:inv=y%2===0;break;case 2:inv=x%3===0;break;case 3:inv=(x+y)%3===0;break;case 4:inv=((x/3|0)+(y/2|0))%2===0;break;case 5:inv=x*y%2+x*y%3===0;break;case 6:inv=(x*y%2+x*y%3)%2===0;break;default:inv=((x+y)%2+x*y%3)%2===0}m[y][x]=m[y][x]!==inv}};
+  const pen=()=>{let r=0,dark=0;for(let t=0;t<2;t++)for(let a=0;a<size;a++){let run=1,prev=null,s='';for(let b=0;b<size;b++){const c=t?m[b][a]:m[a][b];s+=c?'1':'0';if(c===prev){run++;if(run===5)r+=3;else if(run>5)r++}else run=1;prev=c}r+=40*((s.match(/(?=00001011101|10111010000)/g)||[]).length)}
+    for(let y=0;y<size;y++)for(let x=0;x<size;x++){const c=m[y][x];if(c)dark++;if(x<size-1&&y<size-1&&c===m[y][x+1]&&c===m[y+1][x]&&c===m[y+1][x+1])r+=3}
+    return r+(Math.ceil(Math.abs(dark*20-size*size*10)/(size*size))-1)*10};
+  let best=0,bp=1e9;for(let k=0;k<8;k++){mask(k);fmt(k);const p=pen();if(p<bp){bp=p;best=k}mask(k)}
+  mask(best);fmt(best);
+  return{size,m,v,l};
+}
+return{make};
+})();
+function drawQR(cv,text){const q=QR.make(text),n=q.size+8,k=Math.max(3,Math.floor(720/n));cv.width=cv.height=n*k;const c=cv.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,cv.width,cv.height);c.fillStyle='#000';for(let y=0;y<q.size;y++)for(let x=0;x<q.size;x++)if(q.m[y][x])c.fillRect((x+4)*k,(y+4)*k,k,k)}
+
+/* ================= coduri de conectare (SDP comprimat) ================= */
+const b64u=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const unb64u=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u};
+async function readCapped(stream,max){const r=stream.getReader(),parts=[];let n=0;for(;;){const x=await r.read();if(x.done)break;n+=x.value.length;if(n>max){try{r.cancel()}catch(e){}throw new Error('Cod prea mare')}parts.push(x.value)}const out=new Uint8Array(n);let o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}
+async function pack(o){const raw=new TextEncoder().encode(JSON.stringify(o));
+  if(window.CompressionStream){const st=new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate-raw'));return 'F1'+b64u(new Uint8Array(await new Response(st).arrayBuffer()))}
+  return 'F0'+b64u(raw)}
+async function unpack(t){const m=String(t).slice(0,60000).match(/F[01][A-Za-z0-9_-]{20,}/);if(!m)throw new Error('Cod invalid');const c=m[0];if(c.length>40000)throw new Error('Cod prea lung');let u=unb64u(c.slice(2));
+  if(c[1]==='1'){if(!window.DecompressionStream)throw new Error('Browserul nu poate decomprima codul');u=await readCapped(new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw')),120000)}
+  else if(u.length>120000)throw new Error('Cod prea mare');
+  return JSON.parse(new TextDecoder().decode(u))}
+function slim(sdp){const L=sdp.split(/\r?\n/).filter(Boolean);const cand=L.filter(l=>l.startsWith('a=candidate:'));
+  const v4=cand.some(l=>{const p=l.split(' ');return p[2].toLowerCase()==='udp'&&!p[4].includes(':')});
+  return L.filter(l=>{if(!l.startsWith('a=candidate:'))return true;const p=l.split(' ');if(p[2].toLowerCase()!=='udp')return false;if(v4&&p[4].includes(':'))return false;return true}).join('\r\n')+'\r\n'}
+// Browserele ascund adresa locală în spatele unui nume mDNS (xxxx.local), pe care multe hotspoturi Android nu-l rezolvă.
+// Releul spune la ce adresă IP a văzut expeditorul: o ADĂUGĂM ca încă un candidat (cel original rămâne).
+function fixMdns(sdp,ip){if(typeof sdp!=='string')throw new Error('SDP invalid');if(sdp.length>20000)throw new Error('SDP prea mare');
+  if(!/^(\d{1,3}\.){3}\d{1,3}$/.test(ip||'')||/^127\./.test(ip))return sdp;
+  return sdp.split(/\r?\n/).flatMap(l=>{if(!l.startsWith('a=candidate:'))return [l];const p=l.split(' ');
+    if(p[4]&&/\.local$/i.test(p[4])&&p[7]==='host'){const q=p.slice();q[4]=ip;return [q.join(' '),l]}return [l]}).join('\r\n')}
+function gathered(pc,ms=3500){return new Promise(r=>{if(pc.iceGatheringState==='complete')return r();const t=setTimeout(r,ms);pc.addEventListener('icegatheringstatechange',()=>{if(pc.iceGatheringState==='complete'){clearTimeout(t);r()}})})}
+
+/* ================= legătura (canal de date cu backpressure) ================= */
+class Link{
+  constructor(dc){this.dc=dc;this.q=[];dc.bufferedAmountLowThreshold=262144;dc.addEventListener('bufferedamountlow',()=>this.pump())}
+  send(m){if(this.q.length>6000)return;this.q.push(JSON.stringify(m,(k,v)=>k[0]==='_'?undefined:v));this.pump()}
+  pump(){try{while(this.q.length&&this.dc.readyState==='open'&&this.dc.bufferedAmount<1048576)this.dc.send(this.q.shift())}catch(e){}}
+}
+function netSend(m,except){if(S.role==='host'){for(const [id,l] of S.links)if(id!==except)l.send(m)}else if(S.link&&!S.lostFlag)S.link.send(m)}
+
+/* ================= starea tablei ================= */
+let dirty=true;
+const idOk=s=>/^[A-Za-z0-9_-]{1,24}$/.test(s);
+const imgCount=()=>{let n=0;for(const o of S.objs.values())if(o.k==='i')n++;return n};
+function clean(o){if(!o||typeof o!=='object'||typeof o.id!=='string'||!idOk(o.id))return null;const id=o.id,X=v=>clamp(num(v),-3000,5000);
+  if(o.k==='s'){const p=(Array.isArray(o.p)?o.p:[]).slice(0,MAX_PTS).map(v=>num(v));if(p.length%2)p.pop();if(p.length<2)return null;return{id,k:'s',c:col(o.c),w:clamp(num(o.w,6),1,40),p,a:str(o.a,30)}}
+  if(o.k==='n')return{id,k:'n',x:X(o.x),y:X(o.y),w:clamp(num(o.w,340),200,800),t:str(o.t,400),c:col(o.c),a:str(o.a,30)};
+  if(o.k==='i')return{id,k:'i',x:X(o.x),y:X(o.y),w:clamp(num(o.w,400),40,3200),h:clamp(num(o.h,300),40,1800),d:'',n:clamp(Math.floor(num(o.n,0)),0,MAX_IMG_CHUNKS)};
+  return null}
+function loadImg(ob){const im=new Image();
+  im.onload=()=>{if(!im.naturalWidth||im.naturalWidth*im.naturalHeight>4e6){S.objs.delete(ob.id);if(S.sel===ob.id)S.sel=null}else ob._img=im;dirty=true;updHint()};
+  im.onerror=()=>{S.objs.delete(ob.id);dirty=true;updHint()};im.src=ob.d}
+// Normalizează un mesaj primit de la un participant: doar câmpurile așteptate, cu limite. Se retransmite doar forma curățată.
+function norm(m){if(!m||typeof m!=='object')return null;
+  switch(m.o){
+    case 'add':{const ob=clean(m.ob);return ob?{o:'add',ob}:null}
+    case 'imgc':return typeof m.id==='string'&&idOk(m.id)?{o:'imgc',id:m.id,i:Math.floor(num(m.i,-1)),s:str(m.s,13000)}:null;
+    case 'upd':{if(typeof m.id!=='string'||!idOk(m.id)||!m.f||typeof m.f!=='object')return null;const f={};for(const k of ['x','y','w','h'])if(k in m.f)f[k]=num(m.f[k]);if('t' in m.f)f.t=str(m.f.t,400);return{o:'upd',id:m.id,f}}
+    case 'ptsadd':{if(typeof m.id!=='string'||!idOk(m.id)||!Array.isArray(m.p))return null;let p=m.p.slice(0,400).map(v=>num(v));if(p.length%2)p.pop();return{o:'ptsadd',id:m.id,p}}
+    case 'del':return typeof m.id==='string'&&idOk(m.id)?{o:'del',id:m.id}:null;
+  }return null}
+// Aplică un mesaj (deja normalizat de la rețea). Întoarce false doar când un `add` e refuzat (limite / duplicat).
+function apply(m,from){const o=m&&m.o;
+  if(o==='add'){const ob=clean(m.ob);if(!ob||S.objs.has(ob.id)||S.objs.size>=MAX_OBJS)return false;
+    if(ob.k==='i'&&(imgCount()>=MAX_IMGS||ob.n<1))return false;
+    ob._from=from||null;S.objs.set(ob.id,ob);if(ob.k==='i')S.pend.set(ob.id,{got:0,n:ob.n,parts:[]})}
+  else if(o==='imgc'){const q=S.pend.get(m.id),ob=S.objs.get(m.id);if(!q||!ob)return true;const i=m.i;if(!Number.isInteger(i)||i<0||i>=q.n||q.parts[i]!==undefined)return true;q.parts[i]=str(m.s,13000);
+    if(++q.got===q.n){S.pend.delete(m.id);const d=q.parts.join('');if(/^data:image\/(jpeg|png);base64,[A-Za-z0-9+\/=]+$/.test(d)){ob.d=d;loadImg(ob)}else S.objs.delete(m.id)}}
+  else if(o==='upd'){const ob=S.objs.get(m.id),f=m.f;if(!ob||!f||ob.k==='s')return true;
+    if('x' in f)ob.x=clamp(num(f.x),-3000,5000);if('y' in f)ob.y=clamp(num(f.y),-3000,5000);
+    if(ob.k==='n'){if('w' in f)ob.w=clamp(num(f.w),200,800);if('t' in f)ob.t=str(f.t,400);ob._k=null}
+    else if(ob.k==='i'){if('w' in f)ob.w=clamp(num(f.w),40,3200);if('h' in f)ob.h=clamp(num(f.h),40,1800)}}
+  else if(o==='ptsadd'){const ob=S.objs.get(m.id);if(ob&&ob.k==='s'&&Array.isArray(m.p)){const room=MAX_PTS-ob.p.length;if(room>1){let p=m.p.slice(0,Math.min(400,room)).map(v=>num(v));if(p.length%2)p.pop();ob.p.push(...p)}}}
+  else if(o==='del'){S.objs.delete(m.id);S.pend.delete(m.id);if(S.sel===m.id)S.sel=null;updTools()}
+  else if(o==='clr'){S.objs.clear();S.pend.clear();S.mine=[];S.sel=null;updTools()}
+  else if(o==='laser'){const id=str(m.id,24);if(m.off)S.lasers.delete(id);else{if(S.lasers.size>60&&!S.lasers.has(id))return true;S.lasers.set(id,{x:clamp(num(m.x),-100,W+100),y:clamp(num(m.y),-100,H+100),c:col(m.c),n:str(m.n,24),t:performance.now()})}}
+  dirty=true;updHint();return true}
+function sendImg(send,ob){const n=Math.ceil(ob.d.length/12000);send({o:'add',ob:{id:ob.id,k:'i',x:ob.x,y:ob.y,w:ob.w,h:ob.h,n}});for(let i=0;i<n;i++)send({o:'imgc',id:ob.id,i,s:ob.d.slice(i*12000,(i+1)*12000)})}
+function snapshot(l){const s=m=>l.send(m);s({o:'snap0'});s({o:'cfg',lock:S.locked,theme:S.theme});
+  for(const ob of S.objs.values()){
+    if(ob.k==='i'){
+      if(ob.d)sendImg(s,ob);
+      else{const q=S.pend.get(ob.id);if(q){s({o:'add',ob:{id:ob.id,k:'i',x:ob.x,y:ob.y,w:ob.w,h:ob.h,n:q.n}});q.parts.forEach((p,i)=>{if(p!==undefined)s({o:'imgc',id:ob.id,i,s:p})})}}
+    }else s({o:'add',ob})}
+  s({o:'snap1'});s(peersMsg())}
+const peersMsg=()=>({o:'peers',l:[{n:'Ecran',c:'#ffffff'},...[...S.links.keys()].map(id=>{const p=S.slots.get(id);return{n:p&&p.name||'Telefon',c:p&&p.color||'#4cc9f0'}})]});
+
+/* ================= randare ================= */
+const cv=$('#cv'),cx=cv.getContext('2d');let dpr=1,sc=1,ox=0,oy=0,vz=1,vx=0,vy=0,CW=0,CH=0;
+function resize(){const r=cv.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);CW=r.width;CH=r.height;cv.width=Math.max(1,r.width*dpr);cv.height=Math.max(1,r.height*dpr);sc=Math.min(CW/W,CH/H);ox=(CW-W*sc)/2;oy=(CH-H*sc)/2;dirty=true}
+window.addEventListener('resize',resize);window.addEventListener('orientationchange',()=>setTimeout(resize,250));
+function noteLay(ob,c){const k=ob.t+'|'+ob.w;if(ob._k===k)return ob._h;c.font='600 30px system-ui,sans-serif';const mw=ob.w-40,lines=[];
+  for(const para of String(ob.t).split('\n')){let line='';for(let wd of para.split(/\s+/)){
+    while(wd.length>1&&c.measureText(wd).width>mw){let k=wd.length;while(k>1&&c.measureText(wd.slice(0,k)).width>mw)k--;if(line){lines.push(line);line=''}lines.push(wd.slice(0,k));wd=wd.slice(k)}
+    const t=line?line+' '+wd:wd;if(c.measureText(t).width>mw&&line){lines.push(line);line=wd}else line=t}lines.push(line)}
+  ob._l=lines;ob._h=lines.length*38+44;ob._k=k;return ob._h}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+const ink=c=>S.theme==='light'&&/^#(f{3}|f{6})$/i.test(c)?'#10172e':c;
+function paintBoard(c,forExport){const light=S.theme==='light';
+  c.save();rr(c,0,0,W,H,18);c.fillStyle=light?'#f6f7fb':'#10172e';c.fill();c.clip();
+  if(!forExport){c.fillStyle=light?'#10172e18':'#ffffff10';for(let x=50;x<W;x+=50)for(let y=50;y<H;y+=50)c.fillRect(x-1,y-1,2,2)}
+  for(const ob of S.objs.values()){c.save();try{
+    if(ob.k==='s'){c.strokeStyle=c.fillStyle=ink(ob.c);c.lineWidth=ob.w;c.lineCap=c.lineJoin='round';const p=ob.p;if(p.length<4){c.beginPath();c.arc(p[0],p[1],ob.w/2,0,7);c.fill()}else{c.beginPath();c.moveTo(p[0],p[1]);for(let i=2;i<p.length-2;i+=2)c.quadraticCurveTo(p[i],p[i+1],(p[i]+p[i+2])/2,(p[i+1]+p[i+3])/2);c.lineTo(p[p.length-2],p[p.length-1]);c.stroke()}}
+    else if(ob.k==='n'){const h=noteLay(ob,c);c.save();c.shadowColor=light?'#0004':'#0008';c.shadowBlur=14;c.shadowOffsetY=5;rr(c,ob.x,ob.y,ob.w,h,14);c.fillStyle=ob.c;c.fill();c.restore();c.fillStyle='#0b1020';c.font='600 30px system-ui,sans-serif';c.textBaseline='top';ob._l.forEach((l,i)=>c.fillText(l,ob.x+20,ob.y+22+i*38));
+      if(ob.a){c.font='500 16px system-ui,sans-serif';c.fillStyle='#0b102099';c.textAlign='right';c.fillText(ob.a,ob.x+ob.w-12,ob.y+h-22);c.textAlign='left'}}
+    else if(ob.k==='i'){if(ob._img)c.drawImage(ob._img,ob.x,ob.y,ob.w,ob.h);else{c.fillStyle=light?'#dfe4f5':'#1c2547';c.fillRect(ob.x,ob.y,ob.w,ob.h);c.fillStyle='#93a0cf';c.font='24px system-ui';c.textBaseline='top';c.fillText('se încarcă…',ob.x+20,ob.y+20)}}
+    if(!forExport&&S.sel===ob.id){const b=bbox(ob);c.save();c.setLineDash([10,8]);c.lineWidth=3;c.strokeStyle='#4cc9f0';c.strokeRect(b.x-6,b.y-6,b.w+12,b.h+12);c.restore()}
+  }catch(e){}c.restore()}
+  c.restore();
+  if(!forExport){const now=performance.now();for(const [id,L] of S.lasers){const age=now-L.t;if(age>1800){S.lasers.delete(id);continue}c.globalAlpha=age<1000?1:1-(age-1000)/800;c.fillStyle=L.c;c.shadowColor=L.c;c.shadowBlur=30;c.beginPath();c.arc(L.x,L.y,16,0,7);c.fill();c.shadowBlur=0;c.fillStyle=light?'#10172e':'#fff';c.beginPath();c.arc(L.x,L.y,6,0,7);c.fill();if(L.n){c.font='600 20px system-ui';c.fillStyle=light?'#10172e':'#fff';c.fillText(L.n,L.x+22,L.y-8)}c.globalAlpha=1}}
+}
+function bbox(ob){if(ob.k==='n')return{x:ob.x,y:ob.y,w:ob.w,h:noteLay(ob,cx)};if(ob.k==='i')return{x:ob.x,y:ob.y,w:ob.w,h:ob.h};let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;for(let i=0;i<ob.p.length-1;i+=2){x0=Math.min(x0,ob.p[i]);x1=Math.max(x1,ob.p[i]);y0=Math.min(y0,ob.p[i+1]);y1=Math.max(y1,ob.p[i+1])}return{x:x0,y:y0,w:x1-x0,h:y1-y0}}
+function frame(){requestAnimationFrame(frame);if(!S.role)return;if(!dirty&&!S.lasers.size)return;dirty=false;
+  try{cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,CW,CH);cx.fillStyle='#05080f';cx.fillRect(0,0,CW,CH);
+    cx.save();cx.translate(ox+vx,oy+vy);cx.scale(sc*vz,sc*vz);paintBoard(cx,false);cx.restore()}
+  catch(e){resize()}}
+requestAnimationFrame(frame);
+function updHint(){$('#hint').style.display=S.objs.size?'none':'block'}
+function exportPng(){const c=document.createElement('canvas');c.width=1920;c.height=1080;const x=c.getContext('2d');x.fillStyle=S.theme==='light'?'#f6f7fb':'#10172e';x.fillRect(0,0,1920,1080);x.scale(1.2,1.2);const keep=S.sel;S.sel=null;paintBoard(x,true);S.sel=keep;c.toBlob(b=>{if(b)download(b,'fascicul-'+new Date().toISOString().slice(0,16).replace(/[:T]/g,'-')+'.png')},'image/png')}
+
+/* ================= interacțiune ================= */
+const ptrs=new Map();let cur=null,pinch=null;
+const canEdit=()=>S.role==='host'||!S.locked;
+function bpt(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left-ox-vx)/(sc*vz),y:(e.clientY-r.top-oy-vy)/(sc*vz)}}
+function hit(p){const arr=[...S.objs.values()].reverse();for(const ob of arr){
+  if(ob.k==='s'){const r=ob.w/2+16/vz;for(let i=0;i<ob.p.length-1;i+=2){const ax=ob.p[i],ay=ob.p[i+1],bx=ob.p[i+2]??ax,by=ob.p[i+3]??ay,dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy,t=l?clamp(((p.x-ax)*dx+(p.y-ay)*dy)/l,0,1):0;if(Math.hypot(p.x-(ax+t*dx),p.y-(ay+t*dy))<r)return ob}}
+  else{const b=bbox(ob);if(p.x>=b.x&&p.x<=b.x+b.w&&p.y>=b.y&&p.y<=b.y+b.h)return ob}}return null}
+function addLocal(ob){if(S.objs.size>=MAX_OBJS){toast('Tabla e plină ('+MAX_OBJS+' de elemente) — șterge ceva');return false}S.objs.set(ob.id,ob);S.mine.push(ob.id);netSend({o:'add',ob});dirty=true;updHint();return true}
+function emit(m){apply(m);netSend(m)}
+let flushT=null;
+function flushPts(){flushT=null;if(cur&&cur.t==='pen'&&cur.buf.length){netSend({o:'ptsadd',id:cur.ob.id,p:cur.buf});cur.buf=[]}}
+function laserSend(p,off){const now=performance.now();if(!off&&cur&&now-cur.last<40)return;if(cur)cur.last=now;
+  const m=off?{o:'laser',id:S.id,off:1}:{o:'laser',id:S.id,x:Math.round(p.x),y:Math.round(p.y),c:S.color,n:S.name};apply(m);netSend(m)}
+function toolDown(e){const p=bpt(e),t=S.tool;
+  if(!canEdit()&&t!=='laser'&&t!=='view'){toast('Editarea este blocată de ecran');return}
+  if(t==='pen'){const ob={id:uid(),k:'s',c:S.color,w:S.pw,p:[Math.round(clamp(p.x,0,W)),Math.round(clamp(p.y,0,H))],a:S.name};if(!addLocal(ob))return;cur={t,ob,buf:[],lx:p.x,ly:p.y}}
+  else if(t==='note'){const h=hit(p);openNote(h&&h.k==='n'?h:null,p)}
+  else if(t==='move'){const h=[...S.objs.values()].reverse().find(o=>o.k!=='s'&&(()=>{const b=bbox(o);return p.x>=b.x&&p.x<=b.x+b.w&&p.y>=b.y&&p.y<=b.y+b.h})());S.sel=h?h.id:null;updTools();dirty=true;if(h)cur={t,ob:h,dx:p.x-h.x,dy:p.y-h.y,last:0}}
+  else if(t==='erase'){cur={t};eraseAt(p)}
+  else if(t==='laser'){cur={t,last:0,p};cur.timer=setInterval(()=>{if(cur&&cur.t==='laser'){cur.last=0;laserSend(cur.p)}},500);laserSend(p)}
+  else if(t==='view'){cur={t,sx:e.clientX,sy:e.clientY,vx0:vx,vy0:vy}}}
+function eraseAt(p){const h=hit(p);if(h)emit({o:'del',id:h.id})}
+function toolMove(e){if(!cur)return;const p=bpt(e);
+  if(cur.t==='pen'){if(Math.hypot(p.x-cur.lx,p.y-cur.ly)<2.5/vz)return;cur.lx=p.x;cur.ly=p.y;const a=Math.round(clamp(p.x,0,W)),b=Math.round(clamp(p.y,0,H));cur.ob.p.push(a,b);cur.buf.push(a,b);dirty=true;
+    if(cur.ob.p.length>=STROKE_SPLIT){clearTimeout(flushT);flushPts();const nob={id:uid(),k:'s',c:S.color,w:S.pw,p:[a,b],a:S.name};if(addLocal(nob)){cur.ob=nob;cur.buf=[]}else cur=null}
+    else if(!flushT)flushT=setTimeout(flushPts,50)}
+  else if(cur.t==='move'){cur.ob.x=Math.round(clamp(p.x-cur.dx,-3000,5000));cur.ob.y=Math.round(clamp(p.y-cur.dy,-3000,5000));dirty=true;const n=performance.now();if(n-cur.last>50){cur.last=n;netSend({o:'upd',id:cur.ob.id,f:{x:cur.ob.x,y:cur.ob.y}})}}
+  else if(cur.t==='erase')eraseAt(p);
+  else if(cur.t==='laser'){cur.p=p;laserSend(p)}
+  else if(cur.t==='view'){vx=cur.vx0+e.clientX-cur.sx;vy=cur.vy0+e.clientY-cur.sy;dirty=true}}
+function toolUp(){if(!cur)return;if(cur.t==='pen'){clearTimeout(flushT);flushPts()}else if(cur.t==='move')netSend({o:'upd',id:cur.ob.id,f:{x:cur.ob.x,y:cur.ob.y}});else if(cur.t==='laser'){clearInterval(cur.timer);laserSend(null,true)}cur=null}
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(ptrs.size===2){toolUp();const [a,b]=[...ptrs.values()];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)||1,z:vz,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2,vx:vx,vy:vy};return}
+  if(ptrs.size===1)toolDown(e)});
+cv.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch&&ptrs.size>=2){const [a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y),c0x=(a.x+b.x)/2,c0y=(a.y+b.y)/2,r=cv.getBoundingClientRect();
+    const nz=clamp(pinch.z*d/pinch.d,1,5),bx=(pinch.cx-r.left-ox-pinch.vx)/(sc*pinch.z),by=(pinch.cy-r.top-oy-pinch.vy)/(sc*pinch.z);
+    vz=nz;vx=c0x-r.left-ox-bx*sc*nz;vy=c0y-r.top-oy-by*sc*nz;dirty=true;return}
+  toolMove(e)});
+const up=e=>{if(!ptrs.has(e.pointerId))return;ptrs.delete(e.pointerId);if(ptrs.size<2)pinch=null;if(ptrs.size===0){toolUp();if(vz<=1.001){vz=1;vx=vy=0;dirty=true}}};
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{e.preventDefault();const r=cv.getBoundingClientRect(),bx=(e.clientX-r.left-ox-vx)/(sc*vz),by=(e.clientY-r.top-oy-vy)/(sc*vz);vz=clamp(vz*(e.deltaY<0?1.12:1/1.12),1,5);vx=e.clientX-r.left-ox-bx*sc*vz;vy=e.clientY-r.top-oy-by*sc*vz;if(vz===1)vx=vy=0;dirty=true},{passive:false});
+function fitView(){vz=1;vx=vy=0;dirty=true}
+
+/* ---- note ---- */
+let dlgCtx=null;
+function openNote(ob,p){dlgCtx={ob,p};$('#dlgT').value=ob?ob.t:'';$('#dlgDel').style.display=ob?'':'none';$('#dlg').classList.add('on');setTimeout(()=>$('#dlgT').focus(),60)}
+$('#dlgNo').onclick=()=>$('#dlg').classList.remove('on');
+$('#dlgDel').onclick=()=>{if(dlgCtx&&dlgCtx.ob)emit({o:'del',id:dlgCtx.ob.id});$('#dlg').classList.remove('on')};
+$('#dlgOk').onclick=()=>{const t=$('#dlgT').value.trim().slice(0,400);$('#dlg').classList.remove('on');if(!t||!dlgCtx)return;const{ob,p}=dlgCtx;
+  if(ob&&S.objs.has(ob.id))emit({o:'upd',id:ob.id,f:{t}});else addLocal({id:uid(),k:'n',x:Math.round(clamp(p.x-170,0,W-340)),y:Math.round(clamp(p.y-50,0,H-120)),w:340,t,c:S.color,a:S.name})};
+
+/* ---- imagini ---- */
+$('#bImg').onclick=()=>{if(!canEdit())return toast('Editarea este blocată de ecran');$('#fi').click()};
+$('#fi').onchange=async e=>{for(const f of e.target.files)await addImageFile(f);e.target.value=''};
+async function addImageFile(f){
+  if(imgCount()>=MAX_IMGS||S.objs.size>=MAX_OBJS){toast('Tabla e plină — elimină o imagine');return}
+  try{let src;try{src=await createImageBitmap(f)}catch(_){src=await new Promise((r,j)=>{const im=new Image(),u=URL.createObjectURL(f);im.onload=()=>{URL.revokeObjectURL(u);r(im)};im.onerror=j;im.src=u})}
+    const iw=src.width,ih=src.height;if(!iw||!ih)throw 0;
+    let k=Math.min(1,1100/Math.max(iw,ih)),c=null,d='';
+    for(let tries=0;tries<5&&!d;tries++){
+      const w=Math.max(1,Math.round(iw*k)),h=Math.max(1,Math.round(ih*k));
+      if(/png|webp|gif|svg/i.test(f.type)){const c1=document.createElement('canvas');c1.width=w;c1.height=h;c1.getContext('2d').drawImage(src,0,0,w,h);const t=c1.toDataURL('image/png');if(t.length<=420000){d=t;c=c1}}
+      if(!d){const c2=document.createElement('canvas');c2.width=w;c2.height=h;const x2=c2.getContext('2d');x2.fillStyle='#fff';x2.fillRect(0,0,w,h);x2.drawImage(src,0,0,w,h);let q=.72,t=c2.toDataURL('image/jpeg',q);while(t.length>420000&&q>.35){q-=.1;t=c2.toDataURL('image/jpeg',q)}if(t.length<=420000){d=t;c=c2}}
+      if(!d)k*=.75}
+    try{src.close&&src.close()}catch(e){}
+    if(!d)throw 0;
+    let w=Math.min(560,c.width),h=w*c.height/c.width;if(h>560){h=560;w=h*c.width/c.height}
+    const ob={id:uid(),k:'i',x:Math.round(W/2-w/2+(Math.random()-.5)*80),y:Math.round(H/2-h/2+(Math.random()-.5)*60),w:Math.round(w),h:Math.round(h),d,n:Math.ceil(d.length/12000)};
+    ob._img=c;S.objs.set(ob.id,ob);S.mine.push(ob.id);sendImg(netSend,ob);S.sel=ob.id;updTools();dirty=true;updHint()}
+  catch(err){toast('Imaginea nu a putut fi citită')}}
+
+/* ---- bară de unelte ---- */
+$('#dots').innerHTML=COLORS.map(c=>`<span class="dot" data-c="${c}" style="background:${c}"></span>`).join('');
+$$('.tb').forEach(b=>{const s=b.querySelector('small');if(s&&!b.title){b.title=s.textContent;b.setAttribute('aria-label',s.textContent)}});
+$$('.tb[data-t]').forEach(b=>b.onclick=()=>{S.tool=b.dataset.t;updTools()});
+$$('.dot').forEach(d=>d.onclick=()=>{S.color=d.dataset.c;updTools()});
+$('#bPw').onclick=()=>{const l=[4,8,16,30];S.pw=l[(l.indexOf(S.pw)+1)%l.length];toast('Grosime '+S.pw)};
+$('#bUndo').onclick=()=>{if(!canEdit())return;while(S.mine.length){const id=S.mine.pop();if(S.objs.has(id)){emit({o:'del',id});return}}};
+$('#bFit').onclick=fitView;$('#bPng').onclick=exportPng;
+$('#bClr').onclick=()=>{if(confirm('Golești toată tabla pentru toți?'))emit({o:'clr'})};
+$('#bBig').onclick=()=>scaleSel(1.18);$('#bSml').onclick=()=>scaleSel(1/1.18);
+$('#bDel').onclick=()=>{if(S.sel&&canEdit())emit({o:'del',id:S.sel})};
+function scaleSel(f){const ob=S.objs.get(S.sel);if(!ob||!canEdit())return;let fl;if(ob.k==='i')fl={w:Math.round(clamp(ob.w*f,40,3200)),h:Math.round(clamp(ob.h*f,40,1800))};else if(ob.k==='n')fl={w:Math.round(clamp(ob.w*f,200,800))};else return;emit({o:'upd',id:ob.id,f:fl})}
+function updTools(){const ed=canEdit();if(!ed&&!['laser','view'].includes(S.tool))S.tool='laser';
+  $$('.tb[data-t]').forEach(b=>{b.classList.toggle('on',b.dataset.t===S.tool);b.disabled=!ed&&!['laser','view'].includes(b.dataset.t)});
+  $$('.dot').forEach(d=>d.classList.toggle('on',d.dataset.c===S.color));
+  $('#bImg').disabled=!ed;$('#bUndo').disabled=!ed;
+  const sel=S.objs.get(S.sel),sh=!!sel&&ed;$('#bDel').style.display=sh?'':'none';$('#bBig').style.display=$('#bSml').style.display=(sh&&sel.k!=='s')?'':'none';
+  $('#bLock').textContent=S.locked?'🔒 Blocat':'🔓 Liber';
+  cv.style.cursor=S.tool==='view'?'grab':'crosshair'}
+function updTop(){if(S.role==='host'){const n=S.links.size;$('#topSt').textContent=n?`· ${n} telefon${n===1?'':'oane'} conectat${n===1?'':'e'}`:'· niciun telefon conectat'}else{const phones=(S.peers||[]).filter(p=>p.n!=='Ecran').length,n=Math.max(0,phones-1);$('#topSt').textContent=`· ${S.name} · ${n} alt${n===1?'ul':'ii'} conectat${n===1?'':'i'}`}
+  const w=$('#who');w.innerHTML='';(S.peers||[]).filter(p=>p.n!=='Ecran').forEach(p=>{const s=document.createElement('span');s.className='chip';const i=document.createElement('i');i.style.background=p.c;s.append(i,document.createTextNode(p.n));w.appendChild(s)})}
+$('#bFull').onclick=()=>{try{const p=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();p&&p.catch&&p.catch(()=>toast('Ecranul complet nu e disponibil aici'))}catch(e){toast('Ecranul complet nu e disponibil aici')}};
+$('#bPres').onclick=()=>{document.body.classList.add('pres');toast('Atinge colțul stânga-sus sau apasă Esc pentru comenzi')};
+$('#reveal').onclick=()=>document.body.classList.remove('pres');
+$('#bLock').onclick=()=>{S.locked=!S.locked;netSend({o:'cfg',lock:S.locked,theme:S.theme});updTools();toast(S.locked?'Telefoanele nu mai pot edita (doar laser)':'Editare liberă')};
+$('#bTheme').onclick=()=>{S.theme=S.theme==='light'?'dark':'light';netSend({o:'cfg',lock:S.locked,theme:S.theme});dirty=true};
+$('#bLeave').onclick=()=>{if(confirm('Părăsești ecranul?')){S.kicked=true;try{S.link&&S.link.send({o:'bye'})}catch(e){}setTimeout(()=>location.reload(),200)}};
+function enterBoard(role){S.role=role;S.entered=true;if(role==='guest')setTimeout(()=>{$('#rot').style.display='none'},6000);$$('.view').forEach(v=>v.classList.remove('on'));$('#board').classList.add('on');document.body.classList.remove('host','guest');document.body.classList.add(role);resize();updTools();updTop();updHint();wake();dirty=true}
+
+/* ---- tastatură (pe ecran / laptop) ---- */
+addEventListener('keydown',e=>{if(!S.role)return;const tg=e.target;if(tg&&/^(INPUT|TEXTAREA)$/.test(tg.tagName))return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('#bUndo').click()}
+  else if((e.key==='Delete'||e.key==='Backspace')&&S.sel&&canEdit()){e.preventDefault();emit({o:'del',id:S.sel})}
+  else if(e.key==='Escape'){document.body.classList.remove('pres');$$('.modal.on').forEach(m=>m.classList.remove('on'))}});
+addEventListener('beforeunload',e=>{if(S.role==='host'&&S.objs.size){e.preventDefault();e.returnValue=''}});
+
+/* ---- sesiune: salvare / încărcare (ecran) ---- */
+$('#bSave').onclick=()=>{const objs=[...S.objs.values()].filter(o=>o.k!=='i'||o.d).map(o=>{const c={};for(const k of Object.keys(o))if(k[0]!=='_')c[k]=o[k];return c});
+  if(!objs.length)return toast('Tabla e goală');download(new Blob([JSON.stringify({fascicul:1,theme:S.theme,objs})],{type:'application/json'}),'fascicul-sesiune-'+new Date().toISOString().slice(0,16).replace(/[:T]/g,'-')+'.json');toast('Sesiune salvată')};
+$('#bOpen').onclick=()=>$('#fj').click();
+$('#fj').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(f)await loadSession(f)};
+async function loadSession(file){
+  try{if(file.size>40e6)throw 0;const j=JSON.parse(await file.text());if(!j||j.fascicul!==1||!Array.isArray(j.objs))throw 0;
+    if(S.objs.size&&!confirm('Înlocuiești tabla curentă cu sesiunea salvată?'))return;
+    emit({o:'clr'});let n=0,imgs=0;
+    for(const raw of j.objs.slice(0,MAX_OBJS)){const ob=clean(raw);if(!ob)continue;
+      if(ob.k==='i'){const d=String(raw&&raw.d||'');if(imgs>=MAX_IMGS||d.length>600000||!/^data:image\/(jpeg|png);base64,[A-Za-z0-9+\/=]+$/.test(d))continue;ob.d=d;ob.n=Math.ceil(d.length/12000);S.objs.set(ob.id,ob);loadImg(ob);sendImg(netSend,ob);imgs++}
+      else{S.objs.set(ob.id,ob);netSend({o:'add',ob})}
+      n++}
+    if(j.theme==='light'||j.theme==='dark'){S.theme=j.theme;netSend({o:'cfg',lock:S.locked,theme:S.theme})}
+    dirty=true;updHint();updTools();toast(n+' elemente încărcate')}
+  catch(err){toast('Fișier de sesiune invalid')}}
+
+/* ================= camere live ================= */
+function addCam(slot,ev){if(slot.cam)return;const stream=ev.streams[0]||new MediaStream([ev.track]);
+  const d=document.createElement('div');d.className='cam';d.style.display='none';const v=document.createElement('video');v.autoplay=true;v.muted=true;v.playsInline=true;v.srcObject=stream;
+  const s=document.createElement('span');s.textContent=slot.name||'Telefon';d.append(v,s);d.onclick=()=>d.classList.toggle('big');$('#cams').appendChild(d);slot.cam=d;camState(slot,slot.camOn)}
+function camState(slot,on){slot.camOn=!!on;if(!slot.cam)return;slot.cam.style.display=on?'block':'none';slot.cam.querySelector('span').textContent=slot.name||'Telefon';
+  if(on){const v=slot.cam.querySelector('video');v.play&&v.play().catch(()=>{})}}
+async function renegHost(slot,sdp){
+  try{if(typeof sdp!=='string'||sdp.length>20000||++slot.negN>8)return;
+    const ms=sdp.match(/^m=\w+/gm)||[];if(ms.length>2||ms.some(x=>x!=='m=application'&&x!=='m=video'))return;
+    await slot.pc.setRemoteDescription({type:'offer',sdp});await slot.pc.setLocalDescription(await slot.pc.createAnswer());slot.link.send({o:'negA',s:slot.pc.localDescription.sdp})}
+  catch(e){toast('Camera nu s-a putut negocia')}}
+async function getCam(){return navigator.mediaDevices.getUserMedia({video:{facingMode:S.facing,width:{ideal:960},height:{ideal:540}},audio:false})}
+function myCamPreview(st){let d=$('#myCam');if(!d){d=document.createElement('div');d.className='cam';d.id='myCam';d.style.width='120px';const v=document.createElement('video');v.muted=true;v.playsInline=true;v.autoplay=true;const s=document.createElement('span');s.textContent='tu';d.append(v,s);$('#cams').appendChild(d)}d.querySelector('video').srcObject=st}
+function stopCam(notify){if(S.camStream){S.camStream.getTracks().forEach(t=>t.stop());S.camStream=null}
+  if(S.camSender){try{S.camSender.replaceTrack(null)}catch(e){}}
+  if(notify&&S.link&&!S.lostFlag)S.link.send({o:'cam',on:false});
+  $('#bCam').classList.remove('on');$('#bFlip').style.display='none';const p=$('#myCam');p&&p.remove()}
+$('#bCam').onclick=async()=>{
+  if(!S.link||S.lostFlag||!S.pc)return;
+  if(S.camStream){stopCam(true);return}
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast('Camera cere o pagină HTTPS sau fișier local (context sigur)',4500);
+  try{const st=await getCam();S.camStream=st;const tr=st.getVideoTracks()[0];
+    if(S.camSender){await S.camSender.replaceTrack(tr)}
+    else{S.camSender=S.pc.addTrack(tr,st);await S.pc.setLocalDescription(await S.pc.createOffer());S.link.send({o:'neg',s:S.pc.localDescription.sdp})}
+    S.link.send({o:'cam',on:true});$('#bCam').classList.add('on');$('#bFlip').style.display='';myCamPreview(st)}
+  catch(e){stopCam(false);toast('Camera nu a putut porni (permisiune sau context nesigur)',3800)}};
+$('#bFlip').onclick=async()=>{if(!S.camStream||!S.camSender)return;const prev=S.facing;S.facing=prev==='user'?'environment':'user';
+  try{const st=await getCam();const tr=st.getVideoTracks()[0];S.camStream.getTracks().forEach(t=>t.stop());S.camStream=st;await S.camSender.replaceTrack(tr);myCamPreview(st)}
+  catch(e){S.facing=prev;toast('Nu pot comuta camera')}};
+
+/* ================= scanner QR ================= */
+function scanQR(){return new Promise(async res=>{
+  if(!('BarcodeDetector' in window)||!navigator.mediaDevices){toast('Acest browser nu poate scana QR aici. Folosește aplicația Cameră a telefonului sau lipește textul codului.',5000);return res(null)}
+  let st,stop=false;const ov=$('#scn'),v=$('#scnV');
+  const end=r=>{stop=true;ov.classList.remove('on');try{st&&st.getTracks().forEach(t=>t.stop())}catch(e){}v.srcObject=null;res(r)};
+  $('#scnX').onclick=()=>end(null);
+  try{st=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});v.srcObject=st;await v.play();ov.classList.add('on')}catch(e){toast('Camera nu poate fi pornită');return res(null)}
+  const det=new BarcodeDetector({formats:['qr_code']});
+  (async function loop(){if(stop)return;try{const r=await det.detect(v);if(r.length&&r[0].rawValue)return end(r[0].rawValue)}catch(e){}setTimeout(loop,180)})()})}
+
+/* ================= ECRAN (gazdă) ================= */
+const HB_MS=4000, DEAD_MS=20000, UNAPPROVED_MS=120000, HANDSHAKE_MS=60000, MAX_PENDING_RELAY=8;
+async function newSlot(opts){opts=opts||{};
+  const pc=new RTCPeerConnection(iceCfg()),dc=pc.createDataChannel('f',{ordered:true});
+  const slot={id:'p'+(++S.pcount),pc,dc,link:new Link(dc),name:'',color:'#4cc9f0',open:false,approved:!opts.viaRelay,viaRelay:!!opts.viaRelay,camOn:false,cam:null,
+    tokens:300,tokT:Date.now(),lastRx:Date.now(),born:Date.now(),negN:0,accepting:false,g:'',ip:'',drops:0,lastSync:0,dropped:false,code:''};
+  S.slots.set(slot.id,slot);
+  dc.onopen=()=>{if(slot.dropped)return;slot.open=true;slot.lastRx=Date.now();if(S.pending===slot)S.pending=null;if(slot.approved)admit(slot);else askApproval(slot)};
+  dc.onmessage=e=>{if(slot.dropped)return;slot.lastRx=Date.now();if(typeof e.data!=='string'||e.data.length>70000)return;let m;try{m=JSON.parse(e.data)}catch(err){return}hostMsg(m,slot)};
+  dc.onclose=()=>dropPeer(slot);
+  pc.ontrack=e=>addCam(slot,e);
+  pc.onconnectionstatechange=()=>{if(pc.connectionState==='failed'){if(slot.open)toast('Conexiune eșuată — verifică rețeaua');dropPeer(slot)}};
+  try{await pc.setLocalDescription(await pc.createOffer());await gathered(pc);slot.code=await pack({t:'o',s:slim(pc.localDescription.sdp)})}
+  catch(e){dropPeer(slot);throw e}
+  return slot}
+async function acceptAnswer(slot,code,ip){const o=await unpack(code);if(o.t!=='a')throw new Error('Acesta nu e un cod de răspuns');
+  let nmx=str(o.n,24).trim()||'Telefon';if(/^ecran$/i.test(nmx))nmx='Telefon';slot.name=nmx;slot.ip=ip||'';slot.accepting=true;
+  await slot.pc.setRemoteDescription({type:'answer',sdp:fixMdns(o.s,ip)})}
+function admit(slot){if(slot.dropped||!slot.open)return;slot.approved=true;S.apprQ=S.apprQ.filter(s=>s!==slot);showAppr();
+  S.links.set(slot.id,slot.link);snapshot(slot.link);S.peers=peersMsg().l;netSend(peersMsg());updTop();invList();
+  toast((slot.name||'Telefon')+' s-a conectat');const st=$('#invStat');st.textContent='Conectat: '+(slot.name||'telefon')+' ✔';st.className='stat ok';
+  if($('#inv').classList.contains('on')&&!S.pending)setTimeout(hostManual,600)}
+function askApproval(slot){if(S.autoAccept){admit(slot);return}S.apprQ.push(slot);showAppr()}
+function showAppr(){const s=S.apprQ[0],b=$('#appr');if(!s){b.style.display='none';return}b.style.display='flex';$('#apprT').textContent='📱 '+(s.name||'Telefon')+' vrea să se alăture'+(S.apprQ.length>1?' (+'+(S.apprQ.length-1)+' în așteptare)':'')}
+$('#apprYes').onclick=()=>{const s=S.apprQ[0];if(s)admit(s)};
+$('#apprNo').onclick=()=>{const s=S.apprQ[0];if(s){try{s.link.send({o:'kick'})}catch(e){}setTimeout(()=>dropPeer(s),250)}};
+$('#apprAll').onclick=()=>{S.autoAccept=true;$('#rvAppr').checked=false;[...S.apprQ].forEach(admit)};
+$('#rvAppr').onchange=e=>{S.autoAccept=!e.target.checked;if(S.autoAccept)[...S.apprQ].forEach(admit)};
+function dropPeer(slot){if(slot.dropped)return;slot.dropped=true;
+  const was=S.links.delete(slot.id);S.slots.delete(slot.id);S.apprQ=S.apprQ.filter(s=>s!==slot);showAppr();
+  if(slot.g)S.rv.delete(slot.g);if(S.pending===slot)S.pending=null;
+  if(slot.cam)slot.cam.remove();
+  for(const id of [...S.pend.keys()]){const ob=S.objs.get(id);if(ob&&ob._from===slot.id)emit({o:'del',id})}
+  try{slot.pc.close()}catch(e){}
+  if(was){toast((slot.name||'Telefon')+' s-a deconectat');S.peers=peersMsg().l;netSend(peersMsg());updTop();invList()}}
+function allow(slot){const now=Date.now();slot.tokens=Math.min(300,slot.tokens+(now-slot.tokT)*0.15);slot.tokT=now;
+  if(slot.tokens<1){if(++slot.drops>3000)dropPeer(slot);return false}slot.tokens--;return true}
+function resync(slot){const n=Date.now();if(n-slot.lastSync<1000)return;slot.lastSync=n;snapshot(slot.link)}
+function hostMsg(m,slot){
+  if(!m||typeof m!=='object'||typeof m.o!=='string')return;
+  if(m.o==='ping')return;
+  if(m.o==='bye'){dropPeer(slot);return}
+  if(!allow(slot))return;
+  if(m.o==='hello'){slot.color=col(m.c);return}
+  if(!slot.approved)return;
+  switch(m.o){
+    case 'neg':renegHost(slot,m.s);break;
+    case 'cam':camState(slot,!!m.on);break;
+    case 'laser':{if(m.off){const nm={o:'laser',id:slot.id,off:1};apply(nm);netSend(nm,slot.id)}else{const nm={o:'laser',id:slot.id,x:num(m.x),y:num(m.y),c:slot.color,n:slot.name};apply(nm);netSend(nm,slot.id)}break}
+    case 'add':case 'upd':case 'ptsadd':case 'del':case 'imgc':{
+      if(S.locked){resync(slot);return}
+      const nm=norm(m);if(!nm)return;
+      if(nm.o==='imgc'){const t=S.objs.get(nm.id);if(!t||t._from!==slot.id)return}
+      if(nm.o==='add'&&nm.ob.a!==undefined)nm.ob.a=slot.name;
+      if(!apply(nm,slot.id)){resync(slot);return}
+      netSend(nm,slot.id);break}
+  }}
+function invList(){const L=$('#invList');L.innerHTML='';for(const p of S.slots.values()){if(!p.approved||!p.open)continue;const r=document.createElement('div');r.className='row';const n=document.createElement('span');n.style.flex='1';n.textContent='📱 '+(p.name||'Telefon');const b=document.createElement('button');b.className='btn sm dng';b.textContent='Deconectează';b.onclick=()=>{try{p.link.send({o:'kick'})}catch(e){}setTimeout(()=>dropPeer(p),200)};r.append(n,b);L.appendChild(r)}}
+function qrPayload(code){return isWeb()?location.href.split('#')[0]+'#o='+code:code}
+async function hostManual(){
+  if(S.pending&&S.pending.accepting&&!S.pending.open)return;   // o împerechere e în curs: nu o strica
+  const st=$('#invStat');
+  try{st.className='stat';st.textContent='Generez codul…';if(S.pending)dropPeer(S.pending);
+    const s=await newSlot({viaRelay:false});S.pending=s;drawQR($('#qrO'),qrPayload(s.code));$('#codeO').value=s.code;$('#ansIn').value='';st.textContent='Gata. Scanează codul cu telefonul.'}
+  catch(e){st.textContent='Eroare: '+e.message}}
+$('#bInv').onclick=()=>{$('#inv').classList.add('on');if(!S.pending)hostManual();rvShowRoom()};
+$('#invClose').onclick=()=>$('#inv').classList.remove('on');
+$('#newO').onclick=()=>{if(S.pending&&S.pending.accepting&&!S.pending.open&&!confirm('Un telefon se conectează chiar acum. Generezi totuși alt cod?'))return;if(S.pending)S.pending.accepting=false;hostManual()};
+$('#cpO').onclick=()=>copyTxt($('#codeO').value);$('#shO').onclick=()=>shareTxt($('#codeO').value);
+async function ansFrom(t){if(!t||!S.pending)return;const st=$('#invStat');try{st.className='stat';st.textContent='Conectez…';await acceptAnswer(S.pending,t,'')}catch(e){st.textContent='Cod invalid: '+e.message}}
+$('#ansGo').onclick=()=>ansFrom($('#ansIn').value);
+$('#scanA').onclick=async()=>{const t=await scanQR();if(t){$('#ansIn').value=t;ansFrom(t)}};
+
+// camera de semnalizare: BroadcastChannel local (demo) + releu / ntfy (opțional)
+let bcH=null,esH=null,roomUrl='';
+const newTopic=()=>'fsc'+Array.from(crypto.getRandomValues(new Uint8Array(10)),b=>'abcdefghjkmnpqrstuvwxyz23456789'[b%31]).join('');
+const ip4=x=>/^(\d{1,3}\.){3}\d{1,3}$/.test(x||'');
+function pendingRelayCount(){let n=0;for(const s of S.slots.values())if(s.viaRelay&&!s.open)n++;return n}
+function onJoinMsg(m,reply,ip,viaRelay){if(!m||typeof m!=='object')return;
+  if(m.t==='join'&&typeof m.g==='string'&&/^[a-z0-9]{4,16}$/.test(m.g)&&!S.rv.has(m.g)){
+    if(viaRelay&&pendingRelayCount()>=MAX_PENDING_RELAY)return;
+    S.rv.set(m.g,null);
+    newSlot({viaRelay}).then(s=>{s.g=m.g;s.ip=ip||'';S.rv.set(m.g,s);reply({t:'off',g:m.g,c:s.code})}).catch(()=>S.rv.delete(m.g))}
+  else if(m.t==='ans'&&typeof m.g==='string'&&typeof m.c==='string'){const s=S.rv.get(m.g);
+    if(s&&!s.answered&&!s.dropped&&!(ip4(s.ip)&&ip4(ip)&&s.ip!==ip)){s.answered=true;acceptAnswer(s,m.c,ip).catch(()=>{toast('Răspuns invalid de la un telefon');dropPeer(s)})}}}
+function connectRoom(){
+  try{esH&&esH.close()}catch(e){}esH=null;if(!roomUrl)return;
+  const post=r=>fetch(roomUrl,{method:'POST',body:JSON.stringify(r)}).catch(()=>{});
+  try{esH=new EventSource(roomUrl+'/sse');esH.onmessage=e=>{try{const d=JSON.parse(e.data);if(d.event==='message')onJoinMsg(JSON.parse(d.message),post,typeof d.ip==='string'?d.ip:'',true)}catch(err){}}}catch(e){}}
+function rvStartHost(){
+  try{bcH=new BroadcastChannel('fascicul-local');bcH.onmessage=e=>onJoinMsg(e.data,r=>bcH.postMessage(r),'',false)}catch(e){}
+  const base=S.relay||ntfyBase();if(!base)return;
+  let topic='';const sv=ls.get('fsc_room').split('|');if(sv[0]===base&&/^[a-z0-9]{8,32}$/.test(sv[1]||''))topic=sv[1];
+  if(!topic){topic=newTopic();ls.set('fsc_room',base+'|'+topic)}
+  roomUrl=base+'/'+topic;connectRoom()}
+function roomLink(){if(!roomUrl)return '';const app=S.relay?S.relay+'/':(isWeb()?location.href.split('#')[0]:'');return app?app+'#r='+encodeURIComponent(roomUrl):roomUrl}
+function rvShowRoom(){const box=$('#rvBox');box.style.display=roomUrl?'block':'none';$('#manualBox').open=!roomUrl;if(!roomUrl)return;
+  $('#rvTitle').textContent=S.relay?'Releu local — telefoanele se alătură automat':'Cameră automată (ntfy)';
+  const link=roomLink();$('#rvUrl').value=link;$('#rvCode').textContent=roomUrl.split('/').pop();try{drawQR($('#qrR'),link)}catch(e){}}
+$('#rvCp').onclick=()=>copyTxt($('#rvUrl').value);$('#rvSh').onclick=()=>shareTxt($('#rvUrl').value);
+$('#rvNew').onclick=()=>{if(!roomUrl)return;if(!confirm('Camera nouă: telefoanele conectate rămân, dar cele care se reconectează vor avea nevoie de noul cod. Continui?'))return;
+  const base=roomUrl.slice(0,roomUrl.lastIndexOf('/')),t=newTopic();ls.set('fsc_room',base+'|'+t);roomUrl=base+'/'+t;connectRoom();rvShowRoom()};
+
+/* ================= TELEFON (participant) ================= */
+function jStat(t,ok){const s=$('#jStat');s.textContent=t;s.className='stat'+(ok?' ok':'');if(S.lostFlag)$('#lostS').textContent=t}
+function lost(msg){
+  if(S.lostFlag)return;S.lostFlag=true;
+  stopCam(false);S.camSender=null;
+  try{S.pc&&S.pc.close()}catch(e){}S.link=null;
+  $('#lostT').textContent=msg||'Conexiune pierdută';$('#lost').classList.add('on');
+  if(S.joinUrl&&!S.kicked){$('#lostS').textContent='Mă reconectez automat…';$('#lostBtn').style.display='none';S.rcN=0;reconnectTick()}
+  else{$('#lostS').textContent='Revino la început pentru a te reconecta.';$('#lostBtn').style.display=''}}
+async function reconnectTick(){
+  if(!S.lostFlag)return;
+  if(++S.rcN>80){$('#lostS').textContent='Nu reușesc să mă reconectez.';$('#lostBtn').style.display='';return}
+  $('#lostS').textContent='Mă reconectez… (încercarea '+S.rcN+')';
+  try{await rvGuest('ntfy',S.joinUrl)}catch(e){}
+  clearTimeout(S.rcT);S.rcT=setTimeout(reconnectTick,7000)}
+async function guestAccept(code,ip){const o=await unpack(code);if(o.t!=='o'||typeof o.s!=='string')throw new Error('Acesta nu e un cod de ecran');
+  const sdp=fixMdns(o.s,ip);
+  try{S.pc&&S.pc.close()}catch(e){}
+  const pc=new RTCPeerConnection(iceCfg());S.pc=pc;
+  pc.ondatachannel=e=>{if(S.pc!==pc)return;const dc=e.channel,link=new Link(dc);S.link=link;
+    const opened=()=>{if(S.pc!==pc)return;if(S.rvClose){S.rvClose();S.rvClose=null}S.lastRx=Date.now();link.send({o:'hello',n:S.name,c:S.color});jStat('Conectat. Aștept aprobarea ecranului…',true)};
+    dc.onopen=opened;if(dc.readyState==='open')opened();
+    dc.onmessage=ev=>{if(S.pc!==pc)return;S.lastRx=Date.now();if(typeof ev.data!=='string'||ev.data.length>400000)return;let m;try{m=JSON.parse(ev.data)}catch(err){return}guestMsg(m)};
+    dc.onclose=()=>{if(S.pc===pc)lost()}};
+  pc.onconnectionstatechange=()=>{if(S.pc===pc&&pc.connectionState==='failed')lost('Conexiune eșuată')};
+  await pc.setRemoteDescription({type:'offer',sdp});await pc.setLocalDescription(await pc.createAnswer());await gathered(pc);
+  return pack({t:'a',s:slim(pc.localDescription.sdp),n:S.name})}
+function guestMsg(m){if(!m||typeof m!=='object')return;
+  switch(m.o){
+    case 'ping':return;
+    case 'snap0':S.lostFlag=false;clearTimeout(S.rcT);$('#lost').classList.remove('on');if(!S.entered)enterBoard('guest');S.objs.clear();S.pend.clear();S.mine=[];S.sel=null;dirty=true;updTools();break;
+    case 'snap1':updHint();break;
+    case 'cfg':S.locked=!!m.lock;if(m.theme==='light'||m.theme==='dark')S.theme=m.theme;dirty=true;updTools();break;
+    case 'peers':S.peers=(Array.isArray(m.l)?m.l:[]).slice(0,60).map(p=>({n:str(p&&p.n,24),c:col(p&&p.c)}));updTop();break;
+    case 'negA':if(typeof m.s==='string'&&m.s.length<20000&&S.pc)S.pc.setRemoteDescription({type:'answer',sdp:m.s}).catch(()=>{});break;
+    case 'kick':S.kicked=true;lost('Ecranul a încheiat conexiunea.');break;
+    default:{const nm=norm(m);if(nm)apply(nm,null);else if(m.o==='clr'||m.o==='laser')apply(m,null)}}}
+function showAnswer(code){$('#jStep1').style.display='none';$('#jStep2').style.display='block';drawQR($('#qrA'),code);$('#codeA').value=code;jStat('Aștept ca ecranul să preia răspunsul…')}
+function readName(){S.name=($('#nm').value.trim()||'Telefon '+Math.floor(Math.random()*90+10)).slice(0,24);ls.set('fsc_name',S.name)}
+async function roomJoin(url){
+  if(!/^https?:\/\//i.test(url))throw new Error('Adresă de cameră invalidă');
+  const base=url.replace(/[#?].*$/,'').replace(/\/+$/,'');if(!/^[A-Za-z0-9_-]{6,64}$/.test(base.split('/').pop()))throw new Error('Cod de cameră invalid');
+  const u=new URL(base);
+  const known=u.origin===location.origin||(S.relay&&u.origin===new URL(S.relay).origin)||(ntfyBase()&&u.origin===new URL(ntfyBase()).origin);
+  if(!known&&!confirm('Te conectezi la '+u.host+'. E releul / ecranul corect?'))throw new Error('Anulat');
+  S.joinUrl=base;S.kicked=false;await rvGuest('ntfy',base)}
+let joinBusy=false;
+async function joinFrom(txt){if(joinBusy)return;readName();txt=String(txt||'').trim();if(!txt)return jStat('Lipește sau scanează un cod.');
+  joinBusy=true;setTimeout(()=>{joinBusy=false},10000);
+  try{
+    const mr=txt.match(/[#&]r=([^&\s]+)/);if(mr)return await roomJoin(decodeURIComponent(mr[1]));
+    const mo=txt.match(/F[01][A-Za-z0-9_-]{20,}/);
+    if(mo){jStat('Pregătesc răspunsul…');showAnswer(await guestAccept(mo[0],''));return}
+    if(/^https?:\/\//i.test(txt))return await roomJoin(txt);
+    if(/^[A-Za-z0-9_-]{6,64}$/.test(txt)){if(!S.relay)throw new Error('Codul camerei merge doar dacă deschizi aplicația de la adresa releului. Scanează codul QR sau lipește adresa completă.');return await roomJoin(S.relay+'/'+txt.toLowerCase())}
+    throw new Error('Cod necunoscut')
+  }catch(e){joinBusy=false;jStat('Eroare: '+e.message)}}
+async function rvGuest(kind,url){
+  if(S.rvClose){S.rvClose();S.rvClose=null}
+  const g=(uid().replace(/[^a-z0-9]/g,'')+'xxxx').slice(0,10);let post,done=false;
+  if(!S.lostFlag)jStat('Mă conectez la cameră…');
+  async function on(m,ip){if(!m||m.g!==g||m.t!=='off'||done)return;done=true;try{const ans=await guestAccept(m.c,ip);post({t:'ans',g,c:ans});jStat('Răspuns trimis, aștept ecranul…',true)}catch(e){jStat('Eroare: '+e.message)}}
+  if(kind==='bc'){const ch=new BroadcastChannel('fascicul-local');ch.onmessage=e=>on(e.data,'');post=m=>ch.postMessage(m);S.rvClose=()=>ch.close()}
+  else{const es=new EventSource(url+'/sse');let opened=false;
+    es.onmessage=e=>{try{const d=JSON.parse(e.data);if(d.event==='message')on(JSON.parse(d.message),typeof d.ip==='string'?d.ip:'')}catch(err){}};
+    es.onerror=()=>{if(!opened&&!S.lostFlag)jStat('Nu ajung la releu. Ești în aceeași rețea / hotspot?')};
+    S.rvClose=()=>es.close();post=m=>fetch(url,{method:'POST',body:JSON.stringify(m)}).catch(()=>{});
+    await new Promise(r=>{es.onopen=()=>{opened=true;r()};setTimeout(r,4000)})}
+  post({t:'join',g});
+  setTimeout(()=>{if(!done&&!S.lostFlag)jStat('Nimeni nu răspunde. Ecranul e deschis și are camera pornită?')},9000)}
+$('#scanO').onclick=async()=>{const t=await scanQR();if(t){$('#offIn').value=t;joinFrom(t)}};
+$('#offGo').onclick=()=>{clearTimeout(ajT);joinFrom($('#offIn').value)};
+$('#demoBtn').onclick=async()=>{readName();try{await rvGuest('bc')}catch(e){jStat('Demo indisponibil: '+e.message)}};
+$('#cpA').onclick=()=>copyTxt($('#codeA').value);$('#shA').onclick=()=>shareTxt($('#codeA').value);
+$('#jBack').onclick=()=>location.reload();
+let ajT=0;
+function autoJoin(sec){let n=sec;const tick=()=>{if(document.activeElement===$('#nm')){jStat('Schimbă numele, apoi apasă «Continuă».');return}
+  if(n<=0){joinFrom($('#offIn').value);return}jStat('Mă alătur în '+n+' s… (atinge numele ca să-l schimbi)');n--;ajT=setTimeout(tick,1000)};tick()}
+$('#nm').addEventListener('focus',()=>{clearTimeout(ajT);if($('#offIn').value)jStat('Schimbă numele, apoi apasă «Continuă».')});
+
+/* ================= verificări periodice (ritm + curățenie) ================= */
+setInterval(()=>{const now=Date.now();
+  if(S.role==='host'){
+    for(const slot of [...S.slots.values()]){
+      if(slot.open&&slot.link)slot.link.send({o:'ping'});
+      if(slot.open&&now-slot.lastRx>DEAD_MS)dropPeer(slot);
+      else if(slot.open&&!slot.approved&&now-slot.born>UNAPPROVED_MS){try{slot.link.send({o:'kick'})}catch(e){}dropPeer(slot)}
+      else if(!slot.open&&slot.viaRelay&&now-slot.born>HANDSHAKE_MS)dropPeer(slot)}
+  }else if(S.role==='guest'&&S.link&&!S.lostFlag){
+    S.link.send({o:'ping'});if(now-S.lastRx>DEAD_MS)lost('Ecranul nu mai răspunde')}
+},HB_MS);
+addEventListener('online',()=>{if(S.role==='guest'&&S.link&&Date.now()-S.lastRx>DEAD_MS)lost('Rețeaua a revenit — mă reconectez')});
+
+/* ================= pornire ================= */
+let relayReady=Promise.resolve(false);
+function detectRelay(){relayReady=(async()=>{S.relay='';const cands=[];if(isWeb())cands.push(location.origin);const nb=ntfyBase();if(nb)cands.push(nb);
+  for(const base of cands){try{const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),1500);const r=await fetch(base+'/fsc-health',{cache:'no-store',signal:ctl.signal});clearTimeout(t);if((await r.text()).trim()==='fascicul-relay'){S.relay=base;return true}}catch(e){}}
+  return false})();return relayReady}
+$('#goHost').onclick=async()=>{await Promise.race([relayReady,new Promise(r=>setTimeout(r,1500))]);S.name='Ecran';enterBoard('host');S.peers=peersMsg().l;rvStartHost();updTop();$('#bInv').click()};
+$('#goGuest').onclick=()=>{show('join');wake();$('#nm').value=ls.get('fsc_name')||('Telefon '+Math.floor(Math.random()*90+10))};
+$('#cfgStun').value=ls.get('fsc_stun');$('#cfgNtfy').value=ls.get('fsc_ntfy');
+$('#cfgSave').onclick=()=>{ls.set('fsc_stun',$('#cfgStun').value.trim());ls.set('fsc_ntfy',$('#cfgNtfy').value.trim().replace(/\/+$/,''));detectRelay();toast('Salvat')};
+$('#cfgUnmask').onclick=async()=>{if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast('Necesită HTTPS sau fișier local (context sigur)',4000);
+  try{const s=await navigator.mediaDevices.getUserMedia({video:true});s.getTracks().forEach(t=>t.stop());toast('Gata: adresa locală e vizibilă pentru conectare',3500)}catch(e){toast('Permisiune refuzată')}};
+$('#relayDl').onclick=()=>download(new Blob([$('#relaySrc').textContent],{type:'text/javascript'}),'fascicul-releu.js');
+$('#relayCp').onclick=()=>copyTxt($('#relaySrc').textContent);
+if(isWeb()){$('#appDl').onclick=async()=>{try{const r=await fetch(location.href.split('#')[0],{cache:'no-store'});download(await r.blob(),'fascicul.html')}catch(e){toast('Nu pot descărca fișierul')}}}else $('#appDl').style.display='none';
+detectRelay().then(ok=>{if(ok&&isWeb()&&S.relay===location.origin)toast('Aplicația rulează de pe releu local')});
+// deschis dintr-un cod QR: #r=<cameră>  sau  #o=<cod ecran>
+(function bootHash(){const h=location.hash.slice(1);if(!h)return;const mr=h.match(/(?:^|&)r=([^&]+)/),mo=h.match(/(?:^|&)o=(F[01][A-Za-z0-9_-]{20,})/);if(!mr&&!mo)return;
+  $('#goGuest').click();
+  try{$('#offIn').value=mr?'#r='+mr[1]:mo[1]}catch(e){}
+  autoJoin(3)})();
+window.__fsc={S,QR,pack,unpack,fixMdns,norm,apply,clean,addImageFile};
+</script>
+</body>
+</html>
