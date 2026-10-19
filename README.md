@@ -1,26 +1,30 @@
 # FASCICUL
 
-**Telefoane ↔ videoproiector.** Un singur fișier HTML (`fascicul.html`) care leagă telefoanele participanților de dispozitivul conectat la videoproiector și le dă o tablă comună: desen, note, imagini, laser, cameră live. Fără cont, fără urmărire, fără servere terțe, fără dependențe. Parte din seria „fără frontiere” / trade‑free.
+**English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-Conținutul tablei circulă **direct între dispozitive** (WebRTC), nu prin vreun server.
+**Version:** 1.1.0 · **Last updated:** 2026-10-19
 
-## Pornire rapidă
+**Phones ↔ video projector.** A single HTML file (`fascicul.html`) that links the participants' phones to the device connected to the video projector and gives them a shared board: drawing, notes, images, laser pointer, live camera. No account, no tracking, no third-party servers, no dependencies. Part of the "without borders" / trade‑free series.
 
-1. Toate dispozitivele în aceeași rețea (Wi‑Fi sau hotspotul unui telefon).
-2. Pe dispozitivul de la proiector deschide `fascicul.html` și alege **Ecran**. Apare un cod QR.
-3. Pe telefoane scanează codul cu aplicația **Cameră**: se deschide pagina și telefonul se alătură singur. Ecranul cere aprobare pentru fiecare telefon nou (se poate opri).
+The board's content travels **directly between devices** (WebRTC), not through any server.
 
-Pentru pasul 3 telefoanele au nevoie de aplicație. Trei variante:
+## Quick start
 
-| Variantă | Cum | Observații |
+1. All devices on the same network (Wi‑Fi or a phone's hotspot).
+2. On the device at the projector, open `fascicul.html` and choose **Screen**. A QR code appears.
+3. On the phones, scan the code with the **Camera** app: the page opens and the phone joins on its own. The screen asks for approval for every new phone (this can be turned off).
+
+For step 3 the phones need the app. Three options:
+
+| Option | How | Notes |
 |---|---|---|
-| **Releu pe telefonul‑hotspot** (recomandat) | `node fascicul-releu.js` în Termux, vezi mai jos | Releul servește și aplicația; nimic de instalat pe celelalte telefoane |
-| **Adresă web** | deschide <https://chiuta.github.io/FASCICUL/> sau pune `fascicul.html` pe orice găzduire statică (YunoHost…) | HTTPS ⇒ camera foto, scanarea QR și camera live merg peste tot |
-| **Fișier trimis** | trimite `fascicul.html` pe telefoane | Se folosește „împerechere manuală” (două coduri QR per telefon) |
+| **Relay on the hotspot phone** (recommended) | `node fascicul-releu.js` in Termux, see below | The relay also serves the app; nothing to install on the other phones |
+| **Web address** | open <https://chiuta.github.io/FASCICUL/> or put `fascicul.html` on any static hosting (YunoHost…) | HTTPS ⇒ the photo camera, QR scanning and live camera work everywhere |
+| **Sent file** | send `fascicul.html` to the phones | "Manual pairing" is used (two QR codes per phone) |
 
-## Releu pe telefonul‑hotspot (Android + Termux)
+## Relay on the hotspot phone (Android + Termux)
 
-Telefonul care face hotspot rulează un mic releu de semnalizare compatibil cu `ntfy` (Node, fără dependențe). Releul transmite doar mesajele scurte de conectare; **nu vede conținutul tablei**.
+The phone that provides the hotspot runs a small signalling relay compatible with `ntfy` (Node, no dependencies). The relay only passes the short connection messages; **it cannot see the board's content**.
 
 ```sh
 pkg install nodejs
@@ -31,31 +35,31 @@ termux-wake-lock
 node fascicul-releu.js
 ```
 
-Releul afișează adresa (de obicei `http://192.168.43.1:8080`) și o reafișează dacă se schimbă. Pe dispozitivul de la proiector deschide adresa, alege **Ecran** și arată codul QR telefoanelor. Variabile: `PORT`, `HOST`, `ALLOW_ORIGIN` (origini suplimentare, separate prin virgulă).
+The relay prints the address (usually `http://192.168.43.1:8080`) and prints it again if it changes. On the device at the projector, open the address, choose **Screen** and show the QR code to the phones. Variables: `PORT`, `HOST`, `ALLOW_ORIGIN` (additional origins, comma-separated).
 
-Pe `http://` (releu local) browserele blochează camera foto: scanarea QR *din aplicație* și camera live nu merg acolo; tabla, notele, pozele din galerie și laserul merg, iar scanarea cu aplicația Cameră a telefonului merge oricum. Cine are nevoie de camera live deschide `fascicul.html` local pe telefon (context sigur) și pune adresa releului la *Setări avansate*.
+Over `http://` (local relay) browsers block the photo camera: QR scanning *from within the app* and the live camera do not work there; the board, notes, gallery photos and the laser do work, and scanning with the phone's Camera app works anyway. Anyone who needs the live camera opens `fascicul.html` locally on the phone (secure context) and enters the relay address under *Advanced settings*.
 
-## Ce poate tabla
+## What the board can do
 
-- creion (4 grosimi, 6 culori), note, imagini (JPEG/PNG, redimensionate), radieră, laser, mutare / redimensionare, zoom cu două degete;
-- cameră live a unui telefon pe ecran (cu comutare față/spate);
-- mod **Prezentare** (fără butoane; colțul stânga‑sus sau Esc le readuc), ecran complet, fundal negru sau alb;
-- blocare editare (telefoanele rămân doar cu laserul);
-- export **PNG**; salvare / încărcare **sesiune** (`.json`, cu imagini);
-- Ctrl+Z, Delete, Esc pe tastatura ecranului.
+- pen (4 thicknesses, 6 colours), notes, images (JPEG/PNG, resized), eraser, laser, move / resize, two-finger zoom;
+- a phone's live camera on the screen (with front/back switching);
+- **Presentation** mode (no buttons; the top-left corner or Esc brings them back), full screen, black or white background;
+- editing lock (phones are left with the laser only);
+- **PNG** export; saving / loading a **session** (`.json`, with images);
+- Ctrl+Z, Delete, Esc on the screen's keyboard.
 
-## Securitate și limite (de citit)
+## Security and limits (please read)
 
-- **Camera de conectare** are un cod secret aleator (în QR). Cine nu l-a primit nu poate trimite cereri de alăturare. Hotspotul trebuie să aibă parolă.
-- Fiecare telefon nou trebuie **aprobat** de ecran (opțional: «Acceptă toți»).
-- Mesajele de la participanți sunt validate și limitate (obiecte, imagini, ritm); un telefon care inundă canalul este deconectat. Pot șterge sau muta orice element de pe tablă: e o tablă colaborativă, nu are drepturi pe autor.
-- Politica de conținut (CSP) interzice scripturi externe și `eval`; aplicația nu încarcă nimic de pe internet.
-- Pe `http://` traficul din rețeaua locală nu este criptat de transport (conținutul tablei merge criptat prin WebRTC, codurile de conectare nu). Nu folosi un releu pe rețele publice nesigure.
-- iPhone: poate fi telefon participant și ecran, dar nu poate rula releul (Node). `BarcodeDetector` (scanare în aplicație) lipsește din Safari/Firefox — folosește aplicația Cameră.
-- Wi‑Fi cu „izolare clienți” (rețele de oaspeți) blochează conexiunea directă: folosește hotspotul unui telefon.
-- Fără server STUN/TURN: merge în aceeași rețea locală. Un STUN propriu se poate pune în *Setări avansate*.
+- The **connection room** has a random secret code (in the QR). Whoever has not received it cannot send join requests. The hotspot must have a password.
+- Every new phone must be **approved** by the screen (optional: "Accept all").
+- Messages from participants are validated and limited (objects, images, rate); a phone that floods the channel is disconnected. Participants can delete or move any element on the board: it is a collaborative board and has no per-author rights.
+- The content security policy (CSP) forbids external scripts and `eval`; the app loads nothing from the internet.
+- Over `http://` the traffic on the local network is not encrypted by the transport (the board's content travels encrypted through WebRTC, the connection codes do not). Do not use a relay on insecure public networks.
+- iPhone: it can be a participant phone and a screen, but it cannot run the relay (Node). `BarcodeDetector` (in-app scanning) is missing from Safari/Firefox — use the Camera app.
+- Wi‑Fi with "client isolation" (guest networks) blocks the direct connection: use a phone's hotspot.
+- No STUN/TURN server: it works on the same local network. Your own STUN can be set under *Advanced settings*.
 
-## Dezvoltare
+## Development
 
 ```
 src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
@@ -63,8 +67,8 @@ fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
 build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
 ```
 
-Teste efectuate în dezvoltare (Chromium + Playwright): împerechere prin releu cu candidate mDNS active, aprobare / respingere, participanți ostili (mesaje malformate, inundație, spoofing, imagini în zbor), reconectare automată, heartbeat, cameră live cu dispozitiv fals, decodarea codurilor QR randate cu OpenCV, sesiune salvată/încărcată.
+Tests carried out during development (Chromium + Playwright): pairing through the relay with active mDNS candidates, approval / rejection, hostile participants (malformed messages, flooding, spoofing, in-flight images), automatic reconnection, heartbeat, live camera with a fake device, decoding of QR codes rendered with OpenCV, saved/loaded session.
 
-## Licență
+## License
 
 [MIT](LICENSE) © Alexio (Alexandru‑Ionuț Chiuță)
