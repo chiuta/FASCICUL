@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "slug": "fascicul",
+  "name": "FASCICUL — telefoane ↔ videoproiector",
+  "version": "1.1.0",
+  "updated": "2026-10-19",
+  "description": "",
+  "egress": [
+    {
+      "host": "http:(orice gazdă)",
+      "via": [
+        "csp:connect-src"
+      ]
+    },
+    {
+      "host": "https:(orice gazdă)",
+      "via": [
+        "csp:connect-src"
+      ]
+    }
+  ],
+  "permissions": [
+    "getUserMedia",
+    "RTCPeerConnection",
+    "navigator.share",
+    "clipboard",
+    "localStorage",
+    "Web Crypto",
+    "BroadcastChannel"
+  ],
+  "storageKeys": [],
+  "sizeBytes": 174537,
+  "sha256": "0eebbcdfd5a681e958a586dae19943119a59e770c5012dd81453222815625abb",
+  "csp": {
+    "present": true,
+    "directives": {
+      "default-src": "'none'",
+      "script-src": "'unsafe-inline'",
+      "style-src": "'unsafe-inline'",
+      "img-src": "data: blob:",
+      "media-src": "blob: mediastream:",
+      "connect-src": "http: https:",
+      "base-uri": "'none'",
+      "form-action": "'none'"
+    },
+    "scriptInline": "unsafe-inline",
+    "connect": "http: https:"
+  },
+  "features": {
+    "export": true,
+    "import": true,
+    "i18n": [],
+    "pwa": {
+      "manifest": false,
+      "serviceWorker": false
+    },
+    "modules": [
+      "core",
+      "label",
+      "bundle"
+    ]
+  },
+  "kit": {
+    "version": "1.1.1",
+    "modules": [
+      "core",
+      "label",
+      "bundle"
+    ]
+  },
+  "selfSerializing": false
+}
