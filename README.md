@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.1.0 · **Last updated:** 2026-10-19
+**Version:** 1.2.0 · **Last updated:** 2026-10-19
+
+Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Phones ↔ video projector.** A single HTML file (`fascicul.html`) that links the participants' phones to the device connected to the video projector and gives them a shared board: drawing, notes, images, laser pointer, live camera. No account, no tracking, no third-party servers, no dependencies. Part of the "without borders" / trade‑free series.
 

@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.1.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.2.0 · **Utolsó frissítés:** 2026-10-19
+
+A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Telefonok ↔ projektor.** Egyetlen HTML-fájl (`fascicul.html`), amely összekapcsolja a résztvevők telefonjait a projektorhoz csatlakoztatott eszközzel, és közös táblát ad nekik: rajz, jegyzetek, képek, lézermutató, élő kamera. Fiók nélkül, követés nélkül, harmadik felek szerverei nélkül, függőségek nélkül. A „határok nélkül” / trade‑free sorozat része.
 

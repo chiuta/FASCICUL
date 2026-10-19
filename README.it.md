@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.1.0 · **Ultimo aggiornamento:** 2026-10-19
+**Versione:** 1.2.0 · **Ultimo aggiornamento:** 2026-10-19
+
+Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Telefoni ↔ videoproiettore.** Un unico file HTML (`fascicul.html`) che collega i telefoni dei partecipanti al dispositivo collegato al videoproiettore e offre loro una lavagna condivisa: disegno, note, immagini, laser, fotocamera in diretta. Senza account, senza tracciamento, senza server di terzi, senza dipendenze. Parte della serie «senza frontiere» / trade‑free.
 

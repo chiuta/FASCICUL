@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.1.0 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.2.0 · **Zuletzt aktualisiert:** 2026-10-19
+
+Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Smartphones ↔ Beamer.** Eine einzige HTML-Datei (`fascicul.html`), die die Smartphones der Teilnehmenden mit dem am Beamer angeschlossenen Gerät verbindet und ihnen eine gemeinsame Tafel gibt: Zeichnen, Notizen, Bilder, Laserpointer, Live-Kamera. Ohne Konto, ohne Tracking, ohne Server Dritter, ohne Abhängigkeiten. Teil der Reihe „ohne Grenzen“ / trade‑free.
 
