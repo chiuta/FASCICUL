@@ -29,13 +29,13 @@
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 265261,
-  "sha256": "70ab2035b349054c0443c672c95f5758d2b7224dc3ba79c04924181f516d15cf",
+  "sizeBytes": 265089,
+  "sha256": "4b810b76b35c50ee2f0d6b2241644ed5c9a03c213fb504e28ea5c135b92f0f60",
   "csp": {
     "present": true,
     "directives": {
       "default-src": "'none'",
-      "script-src": "'unsafe-inline' sha256×3",
+      "script-src": "'unsafe-inline'",
       "style-src": "'unsafe-inline'",
       "img-src": "data: blob:",
       "media-src": "blob: mediastream:",
