@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.2.0 · **Última atualização:** 2026-10-19
+**Versão:** 1.2.1 · **Última atualização:** 2026-10-22
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ O telemóvel que faz de ponto de acesso executa um pequeno relé de sinalizaçã
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# ative o hotspot (com palavra-passe WPA2) e depois:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Em `http://` (relé local), os navegadores bloqueiam a câmara: a leitura de QR 
 ## Desenvolvimento
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          fonte da aplicação (com o marcador /*__RELAY_SRC__*/)
+fascicul-releu.js     o relé (fonte única; incorporado na aplicação)
+build.js              node build.js  →  fascicul.html (ficheiro único) + index.html (cópia idêntica, para o GitHub Pages)
 ```
 
 Testes realizados durante o desenvolvimento (Chromium + Playwright): emparelhamento através do relé com candidatos mDNS ativos, aprovação / rejeição, participantes hostis (mensagens malformadas, inundação, falsificação de identidade, imagens em trânsito), religação automática, heartbeat, câmara em direto com dispositivo falso, descodificação de códigos QR renderizados com OpenCV, sessão gravada/carregada.
+
+## Histórico / Changelog
+
+### 1.2.1 — 2026-10-22
+- Correção de tradução: o título da sala automática, o ecrã «Ligação perdida» e o texto de ajuda do emparelhamento manual seguem agora o idioma da interface; os comentários de código do README estão localizados.
 
 ## Licença
 

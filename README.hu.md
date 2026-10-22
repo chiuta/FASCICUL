@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.0 · **Utolsó frissítés:** 2026-10-19
+**Verzió:** 1.2.1 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ A hotspotot nyújtó telefon egy kis, `ntfy`-kompatibilis jelzésközvetítő re
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# indítsd el a hotspotot (WPA2 jelszóval), majd:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ A relé kiírja a címet (általában `http://192.168.43.1:8080`), és újra ki�
 ## Fejlesztés
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          az alkalmazás forrása (a /*__RELAY_SRC__*/ jelölővel)
+fascicul-releu.js     az átjátszó (egyetlen forrás; beágyazódik az alkalmazásba)
+build.js              node build.js  →  fascicul.html (egyetlen fájl) + index.html (azonos másolat, a GitHub Pagesnek)
 ```
 
 A fejlesztés során elvégzett tesztek (Chromium + Playwright): párosítás a reléen keresztül aktív mDNS-jelöltekkel, jóváhagyás / elutasítás, ellenséges résztvevők (hibás formátumú üzenetek, elárasztás, megszemélyesítés, úton lévő képek), automatikus újracsatlakozás, heartbeat, élő kamera hamis eszközzel, OpenCV-vel megjelenített QR-kódok dekódolása, mentett/betöltött munkamenet.
+
+## Előzmények / Changelog
+
+### 1.2.1 — 2026-10-22
+- Fordítási javítás: az automatikus szoba címe, a „A kapcsolat megszakadt” képernyő és a kézi párosítás súgószövege mostantól a felület nyelvét követi; a README kódmegjegyzései le vannak fordítva.
 
 ## Licenc
 

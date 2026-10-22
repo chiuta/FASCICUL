@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.0 · **Ultimo aggiornamento:** 2026-10-19
+**Versione:** 1.2.1 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ Il telefono che fa da hotspot esegue un piccolo relay di segnalazione compatibil
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# avvia l’hotspot (con password WPA2), poi:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Su `http://` (relay locale) i browser bloccano la fotocamera: la scansione del Q
 ## Sviluppo
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          sorgente dell’app (con il marcatore /*__RELAY_SRC__*/)
+fascicul-releu.js     il relay (sorgente unica; incorporato nell’app)
+build.js              node build.js  →  fascicul.html (file unico) + index.html (copia identica, per GitHub Pages)
 ```
 
 Test eseguiti durante lo sviluppo (Chromium + Playwright): abbinamento tramite relay con candidati mDNS attivi, approvazione / rifiuto, partecipanti ostili (messaggi malformati, inondazione, spoofing, immagini in volo), riconnessione automatica, heartbeat, fotocamera in diretta con dispositivo finto, decodifica di codici QR renderizzati con OpenCV, sessione salvata/caricata.
+
+## Cronologia / Changelog
+
+### 1.2.1 — 2026-10-22
+- Correzione di traduzione: il titolo della stanza automatica, la schermata «Connessione persa» e il testo guida dell’accoppiamento manuale seguono ora la lingua dell’interfaccia; i commenti di codice nel README sono localizzati.
 
 ## Licenza
 

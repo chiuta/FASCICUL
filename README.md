@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Last updated:** 2026-10-19
+**Version:** 1.2.1 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ The phone that provides the hotspot runs a small signalling relay compatible wit
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# start the hotspot (with a WPA2 password), then:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Over `http://` (local relay) browsers block the photo camera: QR scanning *from 
 ## Development
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          application source (with the /*__RELAY_SRC__*/ marker)
+fascicul-releu.js     the relay (single source; embedded into the app)
+build.js              node build.js  →  fascicul.html (single file) + index.html (identical copy, for GitHub Pages)
 ```
 
 Tests carried out during development (Chromium + Playwright): pairing through the relay with active mDNS candidates, approval / rejection, hostile participants (malformed messages, flooding, spoofing, in-flight images), automatic reconnection, heartbeat, live camera with a fake device, decoding of QR codes rendered with OpenCV, saved/loaded session.
+
+## History / Changelog
+
+### 1.2.1 — 2026-10-22
+- Translation fix: the automatic-room title, the “connection lost” screen and the manual-pairing placeholder now follow the interface language; code comments in the README are localized.
 
 ## License
 

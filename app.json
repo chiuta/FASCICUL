@@ -2,8 +2,8 @@
   "schema": 1,
   "slug": "fascicul",
   "name": "FASCICUL — telefoane ↔ videoproiector",
-  "version": "1.2.0",
-  "updated": "2026-10-19",
+  "version": "1.2.1",
+  "updated": "2026-10-22",
   "description": "",
   "egress": [
     {
@@ -29,8 +29,8 @@
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 265089,
-  "sha256": "4b810b76b35c50ee2f0d6b2241644ed5c9a03c213fb504e28ea5c135b92f0f60",
+  "sizeBytes": 265557,
+  "sha256": "522211fb99e08845f7cc6e92f434cf28c0e55f46a52ef951dfcfb9c61f55b22d",
   "csp": {
     "present": true,
     "directives": {

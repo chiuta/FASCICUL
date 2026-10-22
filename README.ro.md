@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.2.0 · **Ultima actualizare:** 2026-10-19
+**Versiune:** 1.2.1 · **Ultima actualizare:** 2026-10-22
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -70,6 +70,11 @@ build.js              node build.js  →  fascicul.html (un singur fișier) + in
 ```
 
 Teste efectuate în dezvoltare (Chromium + Playwright): împerechere prin releu cu candidate mDNS active, aprobare / respingere, participanți ostili (mesaje malformate, inundație, spoofing, imagini în zbor), reconectare automată, heartbeat, cameră live cu dispozitiv fals, decodarea codurilor QR randate cu OpenCV, sesiune salvată/încărcată.
+
+## Istoric / Changelog
+
+### 1.2.1 — 2026-10-22
+- Corecție de traducere: titlul camerei automate, ecranul „Conexiune pierdută” și textul-ghid din câmpul de împerechere manuală urmează acum limba interfeței.
 
 ## Licență
 

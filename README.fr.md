@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.2.0 · **Dernière mise à jour :** 2026-10-19
+**Version :** 1.2.1 · **Dernière mise à jour :** 2026-10-22
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ Le téléphone qui fait office de point d'accès exécute un petit relais de sig
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# activez le point d’accès (avec mot de passe WPA2), puis :
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Sur `http://` (relais local), les navigateurs bloquent l'appareil photo : le sca
 ## Développement
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          source de l’application (avec le marqueur /*__RELAY_SRC__*/)
+fascicul-releu.js     le relais (source unique ; intégré dans l’application)
+build.js              node build.js  →  fascicul.html (fichier unique) + index.html (copie identique, pour GitHub Pages)
 ```
 
 Tests réalisés pendant le développement (Chromium + Playwright) : appairage via le relais avec candidats mDNS actifs, approbation / refus, participants hostiles (messages malformés, inondation, usurpation, images en transit), reconnexion automatique, heartbeat, caméra en direct avec un faux périphérique, décodage de codes QR rendus avec OpenCV, session enregistrée/chargée.
+
+## Historique / Changelog
+
+### 1.2.1 — 2026-10-22
+- Correction de traduction : le titre de la salle automatique, l’écran « Connexion perdue » et l’exemple du champ d’appairage manuel suivent désormais la langue de l’interface ; les commentaires de code du README sont localisés.
 
 ## Licence
 

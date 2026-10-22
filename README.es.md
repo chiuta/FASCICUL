@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.2.0 · **Última actualización:** 2026-10-19
+**Versión:** 1.2.1 · **Última actualización:** 2026-10-22
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ El teléfono que hace de punto de acceso ejecuta un pequeño relé de señalizac
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# activa el punto de acceso (con contraseña WPA2) y luego:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Con `http://` (relé local) los navegadores bloquean la cámara: el escaneo de Q
 ## Desarrollo
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          fuente de la aplicación (con el marcador /*__RELAY_SRC__*/)
+fascicul-releu.js     el relé (fuente única; se incrusta en la aplicación)
+build.js              node build.js  →  fascicul.html (archivo único) + index.html (copia idéntica, para GitHub Pages)
 ```
 
 Pruebas realizadas durante el desarrollo (Chromium + Playwright): emparejamiento mediante relé con candidatos mDNS activos, aprobación / rechazo, participantes hostiles (mensajes malformados, inundación, suplantación, imágenes en tránsito), reconexión automática, heartbeat, cámara en directo con dispositivo falso, decodificación de códigos QR renderizados con OpenCV, sesión guardada/cargada.
+
+## Historial / Changelog
+
+### 1.2.1 — 2026-10-22
+- Corrección de traducción: el título de la sala automática, la pantalla «Conexión perdida» y el texto de ayuda del emparejamiento manual siguen ahora el idioma de la interfaz; los comentarios de código del README están localizados.
 
 ## Licencia
 

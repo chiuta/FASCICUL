@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.2.0 · **Zuletzt aktualisiert:** 2026-10-19
+**Version:** 1.2.1 · **Zuletzt aktualisiert:** 2026-10-22
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -31,7 +31,7 @@ Das Smartphone, das den Hotspot bereitstellt, führt ein kleines, zu `ntfy` komp
 ```sh
 pkg install nodejs
 termux-setup-storage
-# pornește hotspotul (cu parolă WPA2), apoi:
+# Hotspot starten (mit WPA2-Passwort), dann:
 cd ~/storage/downloads          # aici stau fascicul-releu.js și fascicul.html
 termux-wake-lock
 node fascicul-releu.js
@@ -64,12 +64,17 @@ Das Relay zeigt die Adresse an (meist `http://192.168.43.1:8080`) und zeigt sie 
 ## Entwicklung
 
 ```
-src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
-fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
-build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+src/app.html          Quelltext der App (mit der Markierung /*__RELAY_SRC__*/)
+fascicul-releu.js     das Relay (einzige Quelle; wird in die App eingebettet)
+build.js              node build.js  →  fascicul.html (einzelne Datei) + index.html (identische Kopie, für GitHub Pages)
 ```
 
 Während der Entwicklung durchgeführte Tests (Chromium + Playwright): Kopplung über das Relay mit aktiven mDNS-Kandidaten, Freigabe / Ablehnung, feindliche Teilnehmende (fehlerhafte Nachrichten, Überflutung, Spoofing, Bilder im Transit), automatische Wiederverbindung, Heartbeat, Live-Kamera mit gefälschtem Gerät, Dekodierung von mit OpenCV gerenderten QR-Codes, gespeicherte/geladene Sitzung.
+
+## Verlauf / Changelog
+
+### 1.2.1 — 2026-10-22
+- Übersetzungskorrektur: Der Titel des automatischen Raums, der Bildschirm „Verbindung verloren“ und der Hilfetext der manuellen Kopplung folgen jetzt der Oberflächensprache; die Code-Kommentare im README sind lokalisiert.
 
 ## Lizenz
 
