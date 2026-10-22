@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.1 · **Ultimo aggiornamento:** 2026-10-22
+**Versione:** 1.2.2 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,9 @@ build.js              node build.js  →  fascicul.html (file unico) + index.htm
 Test eseguiti durante lo sviluppo (Chromium + Playwright): abbinamento tramite relay con candidati mDNS attivi, approvazione / rifiuto, partecipanti ostili (messaggi malformati, inondazione, spoofing, immagini in volo), riconnessione automatica, heartbeat, fotocamera in diretta con dispositivo finto, decodifica di codici QR renderizzati con OpenCV, sessione salvata/caricata.
 
 ## Cronologia / Changelog
+
+### 1.2.2 — 2026-10-22
+- l'istruzione di configurazione del relay ora indica la cartella dei download in italiano («cartella dei download») invece della sola parola inglese.
 
 ### 1.2.1 — 2026-10-22
 - Correzione di traduzione: il titolo della stanza automatica, la schermata «Connessione persa» e il testo guida dell’accoppiamento manuale seguono ora la lingua dell’interfaccia; i commenti di codice nel README sono localizzati.

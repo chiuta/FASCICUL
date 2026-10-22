@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.1 · **Utolsó frissítés:** 2026-10-22
+**Verzió:** 1.2.2 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,9 @@ build.js              node build.js  →  fascicul.html (egyetlen fájl) + index
 A fejlesztés során elvégzett tesztek (Chromium + Playwright): párosítás a reléen keresztül aktív mDNS-jelöltekkel, jóváhagyás / elutasítás, ellenséges résztvevők (hibás formátumú üzenetek, elárasztás, megszemélyesítés, úton lévő képek), automatikus újracsatlakozás, heartbeat, élő kamera hamis eszközzel, OpenCV-vel megjelenített QR-kódok dekódolása, mentett/betöltött munkamenet.
 
 ## Előzmények / Changelog
+
+### 1.2.2 — 2026-10-22
+- olasz: a relé beállítási lépése most olaszul nevezi meg a letöltések mappát („cartella dei download”), nem csupán egy angol szót.
 
 ### 1.2.1 — 2026-10-22
 - Fordítási javítás: az automatikus szoba címe, a „A kapcsolat megszakadt” képernyő és a kézi párosítás súgószövege mostantól a felület nyelvét követi; a README kódmegjegyzései le vannak fordítva.

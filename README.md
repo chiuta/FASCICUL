@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.1 · **Last updated:** 2026-10-22
+**Version:** 1.2.2 · **Last updated:** 2026-10-22
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,9 @@ build.js              node build.js  →  fascicul.html (single file) + index.ht
 Tests carried out during development (Chromium + Playwright): pairing through the relay with active mDNS candidates, approval / rejection, hostile participants (malformed messages, flooding, spoofing, in-flight images), automatic reconnection, heartbeat, live camera with a fake device, decoding of QR codes rendered with OpenCV, saved/loaded session.
 
 ## History / Changelog
+
+### 1.2.2 — 2026-10-22
+- Italian: the relay setup step now names the downloads folder in Italian ("cartella dei download") instead of a bare English word.
 
 ### 1.2.1 — 2026-10-22
 - Translation fix: the automatic-room title, the “connection lost” screen and the manual-pairing placeholder now follow the interface language; code comments in the README are localized.
