@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.2.2 · **Zuletzt aktualisiert:** 2026-10-22
+**Version:** 1.2.3 · **Zuletzt aktualisiert:** 2026-10-22
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (einzelne Datei) + index
 Während der Entwicklung durchgeführte Tests (Chromium + Playwright): Kopplung über das Relay mit aktiven mDNS-Kandidaten, Freigabe / Ablehnung, feindliche Teilnehmende (fehlerhafte Nachrichten, Überflutung, Spoofing, Bilder im Transit), automatische Wiederverbindung, Heartbeat, Live-Kamera mit gefälschtem Gerät, Dekodierung von mit OpenCV gerenderten QR-Codes, gespeicherte/geladene Sitzung.
 
 ## Verlauf / Changelog
+
+### 1.2.3 — 2026-10-22
+- Das Zwei-Finger-Zoomen ist auf dem Handy nicht mehr blockiert (user-scalable=no entfernt); genau eine H1 pro Ansicht und ein Main-Landmark; die schreibgeschützten Codefelder haben zugängliche Namen.
+- Auf öffentlichem Hosting (z. B. GitHub Pages) fragt die App /fsc-health nicht mehr ab, was nur einen 404 und einen Konsolenfehler lieferte; das Relais wird nur an Adressen des lokalen Netzes (IP, localhost, .local) oder an der in den erweiterten Einstellungen gesetzten Adresse gesucht.
+- Offline: echter Service Worker und Web-App-Manifest mit Symbolen (installierbar; die Seite öffnet sich ohne Internet, wichtig in einem reinen Hotspot-Netz).
+- Sicherheit: script-src verwendet kein 'unsafe-inline' mehr (Inline-Skripte nur per Hash; der einzige Inline-Handler wurde in den Code verlegt). Das Feld für die Relais-Adresse in den erweiterten Einstellungen wird geprüft (nur http/https), mit übersetzter Meldung.
 
 ### 1.2.2 — 2026-10-22
 - Italienisch: Der Einrichtungsschritt für das Relay nennt den Download-Ordner jetzt auf Italienisch („cartella dei download“) statt nur eines englischen Wortes.

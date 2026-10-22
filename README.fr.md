@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · **Français** · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version :** 1.2.2 · **Dernière mise à jour :** 2026-10-22
+**Version :** 1.2.3 · **Dernière mise à jour :** 2026-10-22
 
 Langues de l'interface : **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (fichier unique) + index
 Tests réalisés pendant le développement (Chromium + Playwright) : appairage via le relais avec candidats mDNS actifs, approbation / refus, participants hostiles (messages malformés, inondation, usurpation, images en transit), reconnexion automatique, heartbeat, caméra en direct avec un faux périphérique, décodage de codes QR rendus avec OpenCV, session enregistrée/chargée.
 
 ## Historique / Changelog
+
+### 1.2.3 — 2026-10-22
+- Le zoom à deux doigts n'est plus bloqué sur téléphone (user-scalable=no supprimé) ; exactement un H1 par écran et un repère main ; les zones de code en lecture seule ont un nom accessible.
+- Sur un hébergement public (p. ex. GitHub Pages), l'application ne sonde plus /fsc-health, qui ne renvoyait qu'une erreur 404 dans la console ; le relais n'est cherché qu'aux adresses du réseau local (IP, localhost, .local) ou à l'adresse configurée dans les Réglages avancés.
+- Hors ligne : vrai service worker et manifeste d'application web avec icônes (installable ; la page s'ouvre sans Internet, ce qui compte sur un réseau limité à un point d'accès).
+- Sécurité : script-src n'utilise plus 'unsafe-inline' (scripts en ligne uniquement par empreinte ; le seul gestionnaire en ligne a été déplacé dans le code). Le champ d'adresse du relais dans les Réglages avancés est validé (http/https uniquement), avec un message traduit.
 
 ### 1.2.2 — 2026-10-22
 - italien : l'étape d'installation du relais nomme désormais le dossier de téléchargements en italien (« cartella dei download ») au lieu d'un simple mot anglais.

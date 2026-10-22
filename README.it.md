@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.2 · **Ultimo aggiornamento:** 2026-10-22
+**Versione:** 1.2.3 · **Ultimo aggiornamento:** 2026-10-22
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (file unico) + index.htm
 Test eseguiti durante lo sviluppo (Chromium + Playwright): abbinamento tramite relay con candidati mDNS attivi, approvazione / rifiuto, partecipanti ostili (messaggi malformati, inondazione, spoofing, immagini in volo), riconnessione automatica, heartbeat, fotocamera in diretta con dispositivo finto, decodifica di codici QR renderizzati con OpenCV, sessione salvata/caricata.
 
 ## Cronologia / Changelog
+
+### 1.2.3 — 2026-10-22
+- Lo zoom con due dita non è più bloccato sul telefono (rimosso user-scalable=no); esattamente un H1 per schermata e un punto di riferimento main; le caselle di codice in sola lettura hanno un nome accessibile.
+- Su hosting pubblico (ad es. GitHub Pages) l'app non sonda più /fsc-health, che restituiva solo un 404 e un errore in console; il relay viene cercato solo a indirizzi della rete locale (IP, localhost, .local) o all'indirizzo impostato nelle Impostazioni avanzate.
+- Offline: vero service worker e manifest di web app con icone (installabile; la pagina si apre senza Internet, importante in una rete solo hotspot).
+- Sicurezza: script-src non usa più 'unsafe-inline' (script inline solo tramite hash; l'unico gestore inline è stato spostato nel codice). Il campo dell'indirizzo del relay nelle Impostazioni avanzate è convalidato (solo http/https), con messaggio tradotto.
 
 ### 1.2.2 — 2026-10-22
 - l'istruzione di configurazione del relay ora indica la cartella dei download in italiano («cartella dei download») invece della sola parola inglese.

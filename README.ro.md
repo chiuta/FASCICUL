@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.2.2 · **Ultima actualizare:** 2026-10-22
+**Versiune:** 1.2.3 · **Ultima actualizare:** 2026-10-22
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (un singur fișier) + in
 Teste efectuate în dezvoltare (Chromium + Playwright): împerechere prin releu cu candidate mDNS active, aprobare / respingere, participanți ostili (mesaje malformate, inundație, spoofing, imagini în zbor), reconectare automată, heartbeat, cameră live cu dispozitiv fals, decodarea codurilor QR randate cu OpenCV, sesiune salvată/încărcată.
 
 ## Istoric / Changelog
+
+### 1.2.3 — 2026-10-22
+- Zoom-ul cu două degete nu mai e blocat pe telefon (scos user-scalable=no); exact un H1 pe ecran și un reper main; casetele de cod doar-citire au nume accesibile.
+- Pe găzduire publică (ex. GitHub Pages) aplicația nu mai sondează /fsc-health, care întorcea doar 404 și o eroare în consolă; releul se caută doar la adrese din rețeaua locală (IP, localhost, .local) sau la adresa configurată în Setări avansate.
+- Offline: service worker real și manifest de aplicație web cu pictograme (instalabilă; pagina se deschide fără internet, important într-o rețea doar de hotspot).
+- Securitate: script-src nu mai folosește 'unsafe-inline' (scripturi inline doar pe bază de hash; singurul handler inline a fost mutat în cod). Câmpul pentru adresa releului din Setări avansate este validat (doar http/https), cu mesaj tradus.
 
 ### 1.2.2 — 2026-10-22
 - italiană: pasul de configurare a releului numește acum în italiană dosarul de descărcări („cartella dei download”), nu doar cuvântul englezesc.

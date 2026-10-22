@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 1.2.2 · **Última actualización:** 2026-10-22
+**Versión:** 1.2.3 · **Última actualización:** 2026-10-22
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (archivo único) + index
 Pruebas realizadas durante el desarrollo (Chromium + Playwright): emparejamiento mediante relé con candidatos mDNS activos, aprobación / rechazo, participantes hostiles (mensajes malformados, inundación, suplantación, imágenes en tránsito), reconexión automática, heartbeat, cámara en directo con dispositivo falso, decodificación de códigos QR renderizados con OpenCV, sesión guardada/cargada.
 
 ## Historial / Changelog
+
+### 1.2.3 — 2026-10-22
+- El zoom con dos dedos ya no está bloqueado en el teléfono (eliminado user-scalable=no); exactamente un H1 por pantalla y un punto de referencia main; las cajas de código de solo lectura tienen nombre accesible.
+- En alojamiento público (p. ej. GitHub Pages) la aplicación ya no sondea /fsc-health, que solo devolvía un 404 y un error en la consola; el relé se busca solo en direcciones de la red local (IP, localhost, .local) o en la dirección configurada en Ajustes avanzados.
+- Sin conexión: service worker real y manifiesto de aplicación web con iconos (instalable; la página se abre sin Internet, importante en una red solo de punto de acceso).
+- Seguridad: script-src ya no usa 'unsafe-inline' (scripts en línea solo por hash; el único controlador en línea se movió al código). El campo de dirección del relé en Ajustes avanzados se valida (solo http/https), con mensaje traducido.
 
 ### 1.2.2 — 2026-10-22
 - italiano: el paso de configuración del relé nombra ahora la carpeta de descargas en italiano («cartella dei download») en lugar de una palabra inglesa suelta.

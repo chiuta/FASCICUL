@@ -1,6 +1,6 @@
 {
   "name": "fascicul",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Telefoane ↔ videoproiector: tablă colaborativă într-un singur fișier HTML (WebRTC, fără server)",
   "license": "MIT",
   "private": true,

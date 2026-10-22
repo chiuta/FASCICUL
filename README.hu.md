@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.2 · **Utolsó frissítés:** 2026-10-22
+**Verzió:** 1.2.3 · **Utolsó frissítés:** 2026-10-22
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (egyetlen fájl) + index
 A fejlesztés során elvégzett tesztek (Chromium + Playwright): párosítás a reléen keresztül aktív mDNS-jelöltekkel, jóváhagyás / elutasítás, ellenséges résztvevők (hibás formátumú üzenetek, elárasztás, megszemélyesítés, úton lévő képek), automatikus újracsatlakozás, heartbeat, élő kamera hamis eszközzel, OpenCV-vel megjelenített QR-kódok dekódolása, mentett/betöltött munkamenet.
 
 ## Előzmények / Changelog
+
+### 1.2.3 — 2026-10-22
+- A kétujjas nagyítás már nem tiltott a telefonon (a user-scalable=no eltávolítva); képernyőnként pontosan egy H1 és egy main tereptárgy; a csak olvasható kódmezőknek hozzáférhető nevük van.
+- Nyilvános tárhelyen (pl. GitHub Pages) az alkalmazás már nem kérdezi le a /fsc-health címet, amely csak 404-et és konzolhibát adott; a közvetítőt csak helyi hálózati címeken (IP, localhost, .local) vagy a Speciális beállításokban megadott címen keresi.
+- Offline: valódi service worker és ikonokkal ellátott webalkalmazás-manifest (telepíthető; az oldal internet nélkül is megnyílik, ami hotspot-only hálózaton fontos).
+- Biztonság: a script-src már nem használ 'unsafe-inline'-t (soron belüli szkriptek csak hash alapján; az egyetlen soron belüli eseménykezelő a kódba került). A közvetítő címe mező a Speciális beállításokban ellenőrzött (csak http/https), lefordított üzenettel.
 
 ### 1.2.2 — 2026-10-22
 - olasz: a relé beállítási lépése most olaszul nevezi meg a letöltések mappát („cartella dei download”), nem csupán egy angol szót.

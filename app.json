@@ -2,9 +2,9 @@
   "schema": 1,
   "slug": "fascicul",
   "name": "FASCICUL — telefoane ↔ videoproiector",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "updated": "2026-10-22",
-  "description": "",
+  "description": "FASCICUL: telefoane ↔ videoproiector. Tablă comună cu desen, note, imagini, laser și cameră live, conexiune directă WebRTC în rețeaua locală, fără server terț. Un singur fișier HTML, instalabil.",
   "egress": [
     {
       "host": "http:(orice gazdă)",
@@ -24,26 +24,29 @@
     "RTCPeerConnection",
     "navigator.share",
     "clipboard",
+    "serviceWorker",
     "localStorage",
     "Web Crypto",
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 265584,
-  "sha256": "561f6761d61ff4f5608bd82f4dd4fd6839e653e7679cc7a35a97d65fe76f006b",
+  "sizeBytes": 268535,
+  "sha256": "0744fd83fcec88cbb4dd49d12a47817d949303f02c73c822e82409f987e66f47",
   "csp": {
     "present": true,
     "directives": {
       "default-src": "'none'",
-      "script-src": "'unsafe-inline'",
+      "script-src": "'self' sha256×4",
       "style-src": "'unsafe-inline'",
-      "img-src": "data: blob:",
+      "img-src": "'self' data: blob:",
       "media-src": "blob: mediastream:",
       "connect-src": "http: https:",
       "base-uri": "'none'",
-      "form-action": "'none'"
+      "form-action": "'none'",
+      "manifest-src": "'self'",
+      "worker-src": "'self'"
     },
-    "scriptInline": "unsafe-inline",
+    "scriptInline": "hash",
     "connect": "http: https:"
   },
   "features": {
@@ -60,8 +63,8 @@
       "de"
     ],
     "pwa": {
-      "manifest": false,
-      "serviceWorker": false
+      "manifest": true,
+      "serviceWorker": true
     },
     "modules": [
       "core",

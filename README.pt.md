@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.2.2 · **Última atualização:** 2026-10-22
+**Versão:** 1.2.3 · **Última atualização:** 2026-10-22
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,12 @@ build.js              node build.js  →  fascicul.html (ficheiro único) + inde
 Testes realizados durante o desenvolvimento (Chromium + Playwright): emparelhamento através do relé com candidatos mDNS ativos, aprovação / rejeição, participantes hostis (mensagens malformadas, inundação, falsificação de identidade, imagens em trânsito), religação automática, heartbeat, câmara em direto com dispositivo falso, descodificação de códigos QR renderizados com OpenCV, sessão gravada/carregada.
 
 ## Histórico / Changelog
+
+### 1.2.3 — 2026-10-22
+- O zoom com dois dedos já não está bloqueado no telemóvel (removido user-scalable=no); exatamente um H1 por ecrã e um ponto de referência main; as caixas de código só de leitura têm nome acessível.
+- Em alojamento público (p. ex. GitHub Pages) a aplicação já não sonda /fsc-health, que só devolvia um 404 e um erro na consola; o relé só é procurado em endereços da rede local (IP, localhost, .local) ou no endereço configurado em Definições avançadas.
+- Sem ligação: service worker real e manifesto de aplicação web com ícones (instalável; a página abre sem Internet, importante numa rede só de hotspot).
+- Segurança: script-src já não usa 'unsafe-inline' (scripts inline apenas por hash; o único manipulador inline foi movido para o código). O campo do endereço do relé em Definições avançadas é validado (apenas http/https), com mensagem traduzida.
 
 ### 1.2.2 — 2026-10-22
 - italiano: o passo de configuração do relé nomeia agora a pasta de transferências em italiano («cartella dei download») em vez de uma palavra inglesa isolada.
