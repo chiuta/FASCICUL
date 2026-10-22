@@ -3,6 +3,8 @@ ROOT=str(pathlib.Path(__file__).resolve().parent.parent)
 import asyncio,sys,os,json,time,base64
 import cv2,numpy as np
 from playwright.async_api import async_playwright
+# kit 1.2.0: confirmările sunt FFF.dialog (nu window.confirm): scriptul acceptă dialogul (ultimul buton)
+AUTO_DLG="""new MutationObserver(()=>{const d=document.querySelector('dialog[data-fff-dialog][open]');if(d){const b=d.querySelectorAll('button');if(b.length)b[b.length-1].click()}}).observe(document,{childList:true,subtree:true,attributes:true});"""
 APP='file://'+ROOT+'/fascicul.html'; res=[];errs=[]
 def ok(n,c,extra=''):
     res.append(bool(c)); print(('PASS ' if c else 'FAIL ')+n+(' '+str(extra) if extra and not c else ''),flush=True)
@@ -16,7 +18,7 @@ async def wf(pg,expr,timeout=10000):
     raise TimeoutError(expr[:110])
 async def mk(b,name):
     ctx=await b.new_context(viewport={'width':900,'height':640}); await ctx.add_init_script(f"try{{localStorage.setItem('fsc_name','{name}')}}catch(e){{}}")
-    pg=await ctx.new_page(); pg.on('dialog',lambda d:asyncio.ensure_future(d.accept())); pg.on('pageerror',lambda e:errs.append((name,str(e)))); return pg
+    pg=await ctx.new_page(); await pg.add_init_script(AUTO_DLG); pg.on('pageerror',lambda e:errs.append((name,str(e)))); return pg
 def decode(dataurl):
     raw=base64.b64decode(dataurl.split(',')[1]); img=cv2.imdecode(np.frombuffer(raw,np.uint8),cv2.IMREAD_GRAYSCALE)
     t=cv2.QRCodeDetectorAruco().detectAndDecode(img)[0]

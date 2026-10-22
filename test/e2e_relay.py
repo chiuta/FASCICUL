@@ -2,6 +2,8 @@ import pathlib
 ROOT=str(pathlib.Path(__file__).resolve().parent.parent)
 import asyncio,sys,os,json,re,subprocess,time
 from playwright.async_api import async_playwright
+# kit 1.2.0: confirmările sunt FFF.dialog (nu window.confirm): scriptul acceptă dialogul (ultimul buton)
+AUTO_DLG="""new MutationObserver(()=>{const d=document.querySelector('dialog[data-fff-dialog][open]');if(d){const b=d.querySelectorAll('button');if(b.length)b[b.length-1].click()}}).observe(document,{childList:true,subtree:true,attributes:true});"""
 IP=sys.argv[1]; PORT=18090; BASE=f'http://{IP}:{PORT}/'
 res=[];errs=[]
 def ok(n,c,extra=''):
@@ -10,7 +12,7 @@ async def mk(browser,name,hold=None):
     ctx=await browser.new_context(viewport={'width':900,'height':640})
     await ctx.add_init_script(f"try{{localStorage.setItem('fsc_name','{name}')}}catch(e){{}}")
     pg=await ctx.new_page()
-    pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
+    await pg.add_init_script(AUTO_DLG)
     pg.on('pageerror',lambda e:errs.append((name,str(e))))
     return pg
 async def wf(pg,expr,timeout=10000):

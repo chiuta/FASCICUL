@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 1.2.6 · **Zuletzt aktualisiert:** 2026-10-23
+**Version:** 1.2.7 · **Zuletzt aktualisiert:** 2026-10-23
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,9 @@ build.js              node build.js  →  fascicul.html (einzelne Datei) + index
 Während der Entwicklung durchgeführte Tests (Chromium + Playwright): Kopplung über das Relay mit aktiven mDNS-Kandidaten, Freigabe / Ablehnung, feindliche Teilnehmende (fehlerhafte Nachrichten, Überflutung, Spoofing, Bilder im Transit), automatische Wiederverbindung, Heartbeat, Live-Kamera mit gefälschtem Gerät, Dekodierung von mit OpenCV gerenderten QR-Codes, gespeicherte/geladene Sitzung.
 
 ## Verlauf / Changelog
+
+### 1.2.7 — 2026-10-23
+- Die nativen Dialoge alert/confirm/prompt wurden durch barrierefreie, übersetzte FFF.dialog-Dialoge ersetzt (fff-kit 1.2.0).
 
 ### 1.2.5 — 2026-10-22
 

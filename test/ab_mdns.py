@@ -2,6 +2,8 @@ import pathlib
 ROOT=str(pathlib.Path(__file__).resolve().parent.parent)
 import asyncio,sys,os,subprocess,time
 from playwright.async_api import async_playwright
+# kit 1.2.0: confirmările sunt FFF.dialog (nu window.confirm): scriptul acceptă dialogul (ultimul buton)
+AUTO_DLG="""new MutationObserver(()=>{const d=document.querySelector('dialog[data-fff-dialog][open]');if(d){const b=d.querySelectorAll('button');if(b.length)b[b.length-1].click()}}).observe(document,{childList:true,subtree:true,attributes:true});"""
 IP=sys.argv[1];PORT=18091;BASE=f'http://{IP}:{PORT}/'
 async def run(patch):
     relay=subprocess.Popen(['node','fascicul-releu.js'],cwd=ROOT,env=dict(os.environ,PORT=str(PORT)),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL); await asyncio.sleep(0.8)
@@ -16,7 +18,7 @@ async def run(patch):
                     body=body.replace("function fixMdns(sdp,ip){","function fixMdns(sdp,ip){if(typeof sdp==='string')return sdp;",1)
                     await route.fulfill(status=200,headers={'content-type':'text/html; charset=utf-8'},body=body)
                 await ctx.route(BASE,h)
-            pg=await ctx.new_page(); pg.on('dialog',lambda d:asyncio.ensure_future(d.accept())); return pg
+            pg=await ctx.new_page(); await pg.add_init_script(AUTO_DLG); return pg
         host=await mk(); await host.goto(BASE); await host.click('#goHost')
         for _ in range(60):
             if len(await host.input_value('#rvUrl'))>10: break

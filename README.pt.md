@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · **Português** · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versão:** 1.2.6 · **Última atualização:** 2026-10-23
+**Versão:** 1.2.7 · **Última atualização:** 2026-10-23
 
 Idiomas da interface: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,9 @@ build.js              node build.js  →  fascicul.html (ficheiro único) + inde
 Testes realizados durante o desenvolvimento (Chromium + Playwright): emparelhamento através do relé com candidatos mDNS ativos, aprovação / rejeição, participantes hostis (mensagens malformadas, inundação, falsificação de identidade, imagens em trânsito), religação automática, heartbeat, câmara em direto com dispositivo falso, descodificação de códigos QR renderizados com OpenCV, sessão gravada/carregada.
 
 ## Histórico / Changelog
+
+### 1.2.7 — 2026-10-23
+- As caixas nativas alert/confirm/prompt foram substituídas por diálogos FFF.dialog acessíveis e traduzidos (fff-kit 1.2.0).
 
 ### 1.2.5 — 2026-10-22
 
