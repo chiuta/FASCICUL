@@ -21,6 +21,13 @@ const raw=s=>new Promise(r=>{const c=net.connect(PORT,'127.0.0.1',()=>c.write(s)
  // SSE + stamped ip
  const got=await new Promise(res=>{const q=http.get({host:'127.0.0.1',port:PORT,agent:false,path:'/roomabcdef/sse'},r=>{let b='';r.on('data',c=>{b+=c;if(b.includes('"event":"message"')){q.destroy();res(b)}});setTimeout(()=>req({method:'POST',path:'/roomabcdef'},'hello'),200);setTimeout(()=>{q.destroy();res(b)},2500)});q.on('error',()=>{})});
  t('SSE delivers message',/"message":"hello"/.test(got)); t('SSE message carries sender ip',/"ip":"127\.0\.0\.1"/.test(got));
+ // UTF-8 tăiat între fragmente TCP rămâne intact (1.2.8)
+ {const msg='{"n":"Ștefănică ă"}',buf=Buffer.from(msg,'utf8'),cut=msg.indexOf('ă')===-1?1:Buffer.byteLength(msg.slice(0,msg.indexOf('ă')))+1;
+  const got=await new Promise(res=>{let b='';const q=http.get({host:'127.0.0.1',port:PORT,agent:false,path:'/utf8topic1/sse'},r=>{r.on('data',c=>{b+=c;if(/"event":"open"/.test(b)&&!q._sent){q._sent=1;
+    const c2=net.connect(PORT,'127.0.0.1',()=>{c2.write('POST /utf8topic1 HTTP/1.1\r\nHost: x\r\nContent-Length: '+buf.length+'\r\nConnection: close\r\n\r\n');c2.write(buf.slice(0,cut));setTimeout(()=>c2.write(buf.slice(cut)),150)});c2.on('error',()=>{});}
+    if(/"message"/.test(b)){q.destroy();res(b)}})});q.on('error',()=>{});setTimeout(()=>{q.destroy();res(b)},3000)});
+  const mm=got.match(/"message":("(?:[^"\\]|\\.)*")/);let dec='';try{dec=JSON.parse(mm[1])}catch(e){}
+  t('UTF-8 split across TCP chunks intact',dec===msg)}
  // subscriber cap
  const socks=[];for(let i=0;i<70;i++){socks.push(http.get({host:'127.0.0.1',port:PORT,agent:false,path:'/capt'+(i%10)+'abcdef/sse'},r=>{}).on('error',()=>{}))}
  await new Promise(r=>setTimeout(r,1200));
