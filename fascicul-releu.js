@@ -121,6 +121,7 @@ function handle(req, res) {
   // publicare
   if (req.method === 'POST') {
     let body = '', over = false;
+    req.setEncoding('utf8');   // StringDecoder: un caracter UTF-8 tăiat între fragmente TCP nu mai devine U+FFFD
     req.on('data', c => {
       if (over) return;
       body += c;

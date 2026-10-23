@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.7 · **Last updated:** 2026-10-23
+**Version:** 1.2.8 · **Last updated:** 2026-10-23
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,10 @@ build.js              node build.js  →  fascicul.html (single file) + index.ht
 Tests carried out during development (Chromium + Playwright): pairing through the relay with active mDNS candidates, approval / rejection, hostile participants (malformed messages, flooding, spoofing, in-flight images), automatic reconnection, heartbeat, live camera with a fake device, decoding of QR codes rendered with OpenCV, saved/loaded session.
 
 ## History / Changelog
+
+### 1.2.8 — 2026-10-23
+
+- Fix: the relay no longer corrupts UTF-8 characters (e.g. diacritics in a phone's name) split across TCP chunks.
 
 ### 1.2.7 — 2026-10-23
 - Native alert/confirm/prompt replaced with accessible, translated FFF.dialog dialogs (fff-kit 1.2.0).

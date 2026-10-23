@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 1.2.7 · **Ultimo aggiornamento:** 2026-10-23
+**Versione:** 1.2.8 · **Ultimo aggiornamento:** 2026-10-23
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,10 @@ build.js              node build.js  →  fascicul.html (file unico) + index.htm
 Test eseguiti durante lo sviluppo (Chromium + Playwright): abbinamento tramite relay con candidati mDNS attivi, approvazione / rifiuto, partecipanti ostili (messaggi malformati, inondazione, spoofing, immagini in volo), riconnessione automatica, heartbeat, fotocamera in diretta con dispositivo finto, decodifica di codici QR renderizzati con OpenCV, sessione salvata/caricata.
 
 ## Cronologia / Changelog
+
+### 1.2.8 — 2026-10-23
+
+- Fix: the relay no longer corrupts UTF-8 characters (e.g. diacritics in a phone's name) split across TCP chunks.
 
 ### 1.2.7 — 2026-10-23
 - Le finestre native alert/confirm/prompt sono sostituite da dialoghi FFF.dialog accessibili e tradotti (fff-kit 1.2.0).

@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 1.2.7 · **Utolsó frissítés:** 2026-10-23
+**Verzió:** 1.2.8 · **Utolsó frissítés:** 2026-10-23
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -72,6 +72,10 @@ build.js              node build.js  →  fascicul.html (egyetlen fájl) + index
 A fejlesztés során elvégzett tesztek (Chromium + Playwright): párosítás a reléen keresztül aktív mDNS-jelöltekkel, jóváhagyás / elutasítás, ellenséges résztvevők (hibás formátumú üzenetek, elárasztás, megszemélyesítés, úton lévő képek), automatikus újracsatlakozás, heartbeat, élő kamera hamis eszközzel, OpenCV-vel megjelenített QR-kódok dekódolása, mentett/betöltött munkamenet.
 
 ## Előzmények / Changelog
+
+### 1.2.8 — 2026-10-23
+
+- Fix: the relay no longer corrupts UTF-8 characters (e.g. diacritics in a phone's name) split across TCP chunks.
 
 ### 1.2.7 — 2026-10-23
 - A natív alert/confirm/prompt ablakokat akadálymentes, lefordított FFF.dialog párbeszédablakok váltották fel (fff-kit 1.2.0).
