@@ -2,13 +2,17 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.2.9 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Telefoane ↔ videoproiector.** Un singur fișier HTML (`fascicul.html`) care leagă telefoanele participanților de dispozitivul conectat la videoproiector și le dă o tablă comună: desen, note, imagini, laser, cameră live. Fără cont, fără urmărire, fără servere terțe, fără dependențe. Parte din seria „fără frontiere” / trade‑free.
 
 Conținutul tablei circulă **direct între dispozitive** (WebRTC), nu prin vreun server.
+
+## Sesiuni înregistrate (v2.0.0)
+
+Butonul **⏺ Înregistrează** (bara de sus) păstrează tabla ca **jurnal de evenimente**: ce se desenează, notele, imaginile, mutările și ștergerile, cu momentul fiecăruia (pornește de la starea de pe tablă). **🎞️ Înregistrări** deschide redarea (play/pauză, derulare, 1×/2×/4×; pauzele lungi se comprimă la 1,5 s) și exportul: **PDF** (până la 8 pagini cu etapele sesiunii), **GIF** animat 480×270 (paletă fixă de 216+40 culori) și **.rec.json** (salvare/reîncărcare, cu validarea fiecărui eveniment). **Limite:** nu se înregistrează laserul și camerele live; înregistrarea stă în memoria paginii (maxim ~12 MB) până o salvezi.
 
 ## Pornire rapidă
 

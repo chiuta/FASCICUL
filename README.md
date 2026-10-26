@@ -2,13 +2,17 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 1.2.9 · **Last updated:** 2026-10-26
+**Version:** 2.0.0 · **Last updated:** 2026-10-26
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
 **Phones ↔ video projector.** A single HTML file (`fascicul.html`) that links the participants' phones to the device connected to the video projector and gives them a shared board: drawing, notes, images, laser pointer, live camera. No account, no tracking, no third-party servers, no dependencies. Part of the "without borders" / trade‑free series.
 
 The board's content travels **directly between devices** (WebRTC), not through any server.
+
+## Recorded sessions (v2.0.0)
+
+**⏺ Record** (top bar) keeps the board as an **event log**: strokes, notes, images, moves and deletions with their timing (starting from the current board). **🎞️ Recordings** opens playback (play/pause, seek, 1×/2×/4×; long pauses are shortened to 1.5 s) and export: **PDF** (up to 8 pages of session stages), animated **GIF** 480×270 (fixed 216+40-colour palette) and **.rec.json** (save/reload, every event validated). **Limits:** laser and live cameras are not recorded; the recording lives in page memory (about 12 MB max) until you save it.
 
 ## Quick start
 
