@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.0.1 · **Ultima actualizare:** 2026-10-27
+
+**Stare:** experimental · **Offline:** complet după încărcarea paginii; legătura dintre telefoane merge doar în aceeași rețea locală (fără STUN/TURN)
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -53,6 +55,19 @@ Pe `http://` (releu local) browserele blochează camera foto: scanarea QR *din a
 - blocare editare (telefoanele rămân doar cu laserul);
 - export **PNG**; salvare / încărcare **sesiune** (`.json`, cu imagini);
 - Ctrl+Z, Delete, Esc pe tastatura ecranului.
+
+## Netestat pe iOS și ghid de conectare în text
+
+**Netestat pe iOS:** aplicația nu a fost testată pe un iPhone/iPad real sau în Safari iOS. Nimic de aici nu pretinde că funcționează acolo; notele despre iPhone din acest README sunt așteptări bazate pe capabilitățile browserelor, nu rezultate de testare. Rapoartele de la utilizatori iOS sunt binevenite.
+
+**Ghid de conectare (text):**
+1. Pune toate dispozitivele în aceeași rețea: Wi-Fi-ul sălii sau hotspotul unui telefon (cu parolă WPA2). Rețelele pentru oaspeți cu „izolarea clienților” blochează legătura.
+2. Pe dispozitivul de la proiector deschide aplicația și apasă **Ecran**. Apare un cod QR.
+3. Pe fiecare telefon deschide aplicația Cameră, îndreapt-o spre codul QR și deschide linkul apărut. Telefonul se conectează singur.
+4. Pe ecran aprobă fiecare telefon nou (dacă nu e activ „Acceptă toți”).
+5. Dacă un telefon nu se conectează: verifică să fie în aceeași rețea, reîncarcă pagina pe telefon și scanează din nou; dacă tot nu merge, folosește „Asocierea manuală” (două coduri QR per telefon) sau un releu pe telefonul cu hotspot (vezi mai sus).
+
+Un **ghid video** este planificat, încă nerealizat.
 
 ## Securitate și limite (de citit)
 
