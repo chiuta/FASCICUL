@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.0.1 · **Last updated:** 2026-10-27
+
+**Status:** experimental · **Offline:** complete after the page is loaded; the phone link works only on the same local network (no STUN/TURN)
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -53,6 +55,19 @@ Over `http://` (local relay) browsers block the photo camera: QR scanning *from 
 - editing lock (phones are left with the laser only);
 - **PNG** export; saving / loading a **session** (`.json`, with images);
 - Ctrl+Z, Delete, Esc on the screen's keyboard.
+
+## Not tested on iOS, and a text connection guide
+
+**Not tested on iOS:** the app has not been tested on a real iPhone/iPad or in iOS Safari. Nothing here claims it works there; the iPhone notes in this README are expectations from browser capabilities, not test results. Reports from iOS users are welcome.
+
+**Connection guide (text):**
+1. Put all devices on the same network: the Wi-Fi of the room, or the hotspot of one phone (with a WPA2 password). Guest networks with "client isolation" block the link.
+2. On the device at the projector, open the app, press **Screen**. A QR code appears.
+3. On each phone, open the Camera app and point it at the QR code; open the link that appears. The phone joins by itself.
+4. On the screen, approve each new phone (unless "Accept all" is on).
+5. If a phone does not join: check it is on the same network, reload the page on the phone and scan again; if it still fails, use "Manual pairing" (two QR codes per phone) or a relay on the hotspot phone (see above).
+
+A **video guide** is planned, not made yet.
 
 ## Security and limits (please read)
 
