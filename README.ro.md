@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.1 · **Ultima actualizare:** 2026-10-27
+**Versiune:** 2.1.0 · **Ultima actualizare:** 2026-10-27
 
 **Stare:** experimental · **Offline:** complet după încărcarea paginii; legătura dintre telefoane merge doar în aceeași rețea locală (fără STUN/TURN)
 
@@ -67,7 +67,7 @@ Pe `http://` (releu local) browserele blochează camera foto: scanarea QR *din a
 4. Pe ecran aprobă fiecare telefon nou (dacă nu e activ „Acceptă toți”).
 5. Dacă un telefon nu se conectează: verifică să fie în aceeași rețea, reîncarcă pagina pe telefon și scanează din nou; dacă tot nu merge, folosește „Asocierea manuală” (două coduri QR per telefon) sau un releu pe telefonul cu hotspot (vezi mai sus).
 
-Un **ghid video** este planificat, încă nerealizat.
+Pagina de start are acum un **ghid animat pas cu pas** pliabil (5 pași, Înapoi/Înainte, redare automată opțională, animații oprite la mișcare redusă) în cele 8 limbi (RO și EN scrise; restul sunt traduceri automate). Un **videoclip** real nu a fost realizat.
 
 ## Securitate și limite (de citit)
 
