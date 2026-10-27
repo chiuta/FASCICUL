@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.1 · **Last updated:** 2026-10-27
+**Version:** 2.1.0 · **Last updated:** 2026-10-27
 
 **Status:** experimental · **Offline:** complete after the page is loaded; the phone link works only on the same local network (no STUN/TURN)
 
@@ -67,7 +67,7 @@ Over `http://` (local relay) browsers block the photo camera: QR scanning *from 
 4. On the screen, approve each new phone (unless "Accept all" is on).
 5. If a phone does not join: check it is on the same network, reload the page on the phone and scan again; if it still fails, use "Manual pairing" (two QR codes per phone) or a relay on the hotspot phone (see above).
 
-A **video guide** is planned, not made yet.
+The home page now has a collapsible **animated step-by-step guide** (5 steps, Back/Next, optional auto-play, animations off with reduced-motion) in all 8 languages (RO and EN written; the others are automatic translations). A real **video** guide has not been made.
 
 ## Security and limits (please read)
 
