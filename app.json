@@ -30,8 +30,8 @@
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 349861,
-  "sha256": "6dde847d375d5f133fd9c388c07d2b3572dccee83d095b4e80ed701045b4169c",
+  "sizeBytes": 490295,
+  "sha256": "8ff2859466660dd2e763c40549472aba75b51f46d3625d782d94afa7b440f091",
   "csp": {
     "present": true,
     "directives": {
@@ -71,7 +71,11 @@
       "store",
       "dialog",
       "label",
-      "bundle"
+      "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history"
     ]
   },
   "kit": {
@@ -81,7 +85,11 @@
       "store",
       "dialog",
       "label",
-      "bundle"
+      "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history"
     ]
   },
   "selfSerializing": false
