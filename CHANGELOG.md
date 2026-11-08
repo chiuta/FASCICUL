@@ -1,5 +1,8 @@
 # Jurnal de modificări — FASCICUL
 
+## 2.1.5 — 2026-11-08
+Doar documentare + sincronizare: README (EN/RO) are un tabel «testat / netestat» (Chromium emulat și releul = testate; telefoane Android reale, iOS, Firefox/Safari, proiector și rețele reale = netestate; fără rezultate inventate). `fascicul.html` reconstruit din `src/app.html` (rămăsese în urmă față de sursă); versiunea sincronizată în sursă.
+
 ## 2.1.2 — 2026-11-03
 
 Destinații «Trimite către…» pentru pașaportul de învățare: adăugate FENARIUM și MENSURA (registrul de aplicații-țintă reinjectat din hub).

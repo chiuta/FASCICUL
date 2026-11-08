@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.1.4 · **Ultima actualizare:** 2026-11-08
+**Versiune:** 2.1.5 · **Ultima actualizare:** 2026-11-08
 
 **Stare:** experimental · **Offline:** complet după încărcarea paginii; legătura dintre telefoane merge doar în aceeași rețea locală (fără STUN/TURN)
 
@@ -59,6 +59,19 @@ Pe `http://` (releu local) browserele blochează camera foto: scanarea QR *din a
 ## Netestat pe iOS și ghid de conectare în text
 
 **Netestat pe iOS:** aplicația nu a fost testată pe un iPhone/iPad real sau în Safari iOS. Nimic de aici nu pretinde că funcționează acolo; notele despre iPhone din acest README sunt așteptări bazate pe capabilitățile browserelor, nu rezultate de testare. Rapoartele de la utilizatori iOS sunt binevenite.
+
+**Testat / netestat (ce acoperă efectiv testele din depozit):**
+
+| Mediu | Stare | Temei |
+|---|---|---|
+| Chromium (Playwright, ferestre emulate, mai multe contexte de browser în rol de ecran și telefoane) | testat | `tests/*.test.mjs`, `test/e2e_*.py` |
+| Releul local (Node.js `fascicul-releu.js`) | testat | `test/relay.test.js`, `test/e2e_relay.py` |
+| Telefoane Android reale (Chrome sau alte browsere) | **netestat** | nu există teste pe dispozitive fizice |
+| iPhone / iPad (Safari iOS) | **netestat** | vezi mai sus |
+| Firefox, Safari desktop, Edge | **netestat** | nu există teste automate în aceste browsere |
+| Un videoproiector real și rețele reale (Wi-Fi de sală, hotspot de telefon, rețele de oaspeți cu izolarea clienților) | **netestat** | testele rulează pe o singură mașină |
+
+„Testat” înseamnă teste automate în Chromium emulat, nu o garanție pe orice dispozitiv. Nu se pretinde niciun alt rezultat.
 
 **Ghid de conectare (text):**
 1. Pune toate dispozitivele în aceeași rețea: Wi-Fi-ul sălii sau hotspotul unui telefon (cu parolă WPA2). Rețelele pentru oaspeți cu „izolarea clienților” blochează legătura.

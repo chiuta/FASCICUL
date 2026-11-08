@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.1.4 · **Last updated:** 2026-11-08
+**Version:** 2.1.5 · **Last updated:** 2026-11-08
 
 **Status:** experimental · **Offline:** complete after the page is loaded; the phone link works only on the same local network (no STUN/TURN)
 
@@ -59,6 +59,19 @@ Over `http://` (local relay) browsers block the photo camera: QR scanning *from 
 ## Not tested on iOS, and a text connection guide
 
 **Not tested on iOS:** the app has not been tested on a real iPhone/iPad or in iOS Safari. Nothing here claims it works there; the iPhone notes in this README are expectations from browser capabilities, not test results. Reports from iOS users are welcome.
+
+**Tested / not tested (what the repository's tests actually cover):**
+
+| Environment | Status | Basis |
+|---|---|---|
+| Chromium (Playwright, emulated viewports, several browser contexts acting as screen and phones) | tested | `tests/*.test.mjs`, `test/e2e_*.py` |
+| Local relay (Node.js `fascicul-releu.js`) | tested | `test/relay.test.js`, `test/e2e_relay.py` |
+| Real Android phones (Chrome or other browsers) | **not tested** | no tests on physical devices |
+| iPhone / iPad (Safari iOS) | **not tested** | see above |
+| Firefox, desktop Safari, Edge | **not tested** | no automated tests in these browsers |
+| A real video projector and real networks (room Wi-Fi, phone hotspot, guest networks with client isolation) | **not tested** | the tests run on one machine |
+
+"Tested" means automated tests on emulated Chromium, not a guarantee on every device. No other results are claimed.
 
 **Connection guide (text):**
 1. Put all devices on the same network: the Wi-Fi of the room, or the hotspot of one phone (with a WPA2 password). Guest networks with "client isolation" block the link.
