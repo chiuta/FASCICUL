@@ -2,8 +2,8 @@
   "schema": 1,
   "slug": "fascicul",
   "name": "FASCICUL — telefoane ↔ videoproiector",
-  "version": "2.1.6",
-  "updated": "2026-11-10",
+  "version": "2.1.7",
+  "updated": "2026-11-11",
   "description": "FASCICUL: telefoane ↔ videoproiector. Tablă comună cu desen, note, imagini, laser și cameră live, conexiune directă WebRTC în rețeaua locală, fără server terț. Un singur fișier HTML, instalabil.",
   "egress": [
     {
@@ -30,8 +30,8 @@
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 603057,
-  "sha256": "0a87c6582eb4545639dcb9d653cf78e217c21b3538cd1ca7a24e1b2e3507c8fb",
+  "sizeBytes": 604284,
+  "sha256": "8bd47aac6ab6d836db6a362eb8ef4c0175f8ffd1607996c5287bd13781d081b3",
   "csp": {
     "present": true,
     "directives": {
