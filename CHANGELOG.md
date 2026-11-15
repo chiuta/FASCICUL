@@ -1,5 +1,9 @@
 # Jurnal de modificări — FASCICUL
 
+## 2.1.10 — 2026-11-15
+
+- Nou: texturi fractale hiper-detaliate (fff-texturi 1.1.2) — fundalul și suprafețele mari (carduri, panouri, antete, butoane; filele și dialogurile ascunse la încărcare, când se deschid) primesc un material generat local (WebGL2, fără rețea și fără imagini), care se repetă fără cusătură; culorile aplicației rămân ale ei. Se oprește din dialogul „Transparență” sau cu `?notex=1`.
+
 ## 2.1.5 — 2026-11-08
 Doar documentare + sincronizare: README (EN/RO) are un tabel «testat / netestat» (Chromium emulat și releul = testate; telefoane Android reale, iOS, Firefox/Safari, proiector și rețele reale = netestate; fără rezultate inventate). `fascicul.html` reconstruit din `src/app.html` (rămăsese în urmă față de sursă); versiunea sincronizată în sursă.
 
