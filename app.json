@@ -27,16 +27,17 @@
     "serviceWorker",
     "localStorage",
     "Web Crypto",
+    "WebGL",
     "BroadcastChannel"
   ],
   "storageKeys": [],
-  "sizeBytes": 620744,
-  "sha256": "a6359c9ba2bb0f1b01daa706bba949902f35e9f43c8e45655817176309cb760a",
+  "sizeBytes": 672751,
+  "sha256": "f0e1fd432f4392b58016a75b69b07521e22471be5f99dee5be4f731e7daf1c93",
   "csp": {
     "present": true,
     "directives": {
       "default-src": "'none'",
-      "script-src": "'self' sha256×6",
+      "script-src": "'self' sha256×7",
       "style-src": "'unsafe-inline'",
       "img-src": "'self' data: blob:",
       "media-src": "blob: mediastream:",
