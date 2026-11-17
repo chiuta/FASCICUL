@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.2.1 · **Zuletzt aktualisiert:** 2026-11-15
+**Version:** 2.2.2 · **Zuletzt aktualisiert:** 2026-11-17
 
 **Status:** experimentell · **Offline:** vollständig
 
@@ -69,6 +69,7 @@ Das Relay zeigt die Adresse an (meist `http://192.168.43.1:8080`) und zeigt sie 
 src/app.html          Quelltext der App (mit der Markierung /*__RELAY_SRC__*/)
 fascicul-releu.js     das Relay (einzige Quelle; wird in die App eingebettet)
 build.js              node build.js  →  fascicul.html (einzelne Datei) + index.html (identische Kopie, für GitHub Pages)
+(nach Kit-Release)    node build.js --from-index  →  schreibt src/app.html aus index.html neu (nachdem das Kit index.html direkt verändert hat)
 ```
 
 Während der Entwicklung durchgeführte Tests (Chromium + Playwright): Kopplung über das Relay mit aktiven mDNS-Kandidaten, Freigabe / Ablehnung, feindliche Teilnehmende (fehlerhafte Nachrichten, Überflutung, Spoofing, Bilder im Transit), automatische Wiederverbindung, Heartbeat, Live-Kamera mit gefälschtem Gerät, Dekodierung von mit OpenCV gerenderten QR-Codes, gespeicherte/geladene Sitzung.

@@ -2,7 +2,7 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.2.1 · **Last updated:** 2026-11-15
+**Version:** 2.2.2 · **Last updated:** 2026-11-17
 
 **Status:** experimental · **Offline:** complete after the page is loaded; the phone link works only on the same local network (no STUN/TURN)
 
@@ -99,6 +99,7 @@ The home page now has a collapsible **animated step-by-step guide** (5 steps, Ba
 src/app.html          application source (with the /*__RELAY_SRC__*/ marker)
 fascicul-releu.js     the relay (single source; embedded into the app)
 build.js              node build.js  →  fascicul.html (single file) + index.html (identical copy, for GitHub Pages)
+(after kit release)   node build.js --from-index  →  rewrites src/app.html from index.html (once the kit has patched index.html in place)
 ```
 
 Tests carried out during development (Chromium + Playwright): pairing through the relay with active mDNS candidates, approval / rejection, hostile participants (malformed messages, flooding, spoofing, in-flight images), automatic reconnection, heartbeat, live camera with a fake device, decoding of QR codes rendered with OpenCV, saved/loaded session.

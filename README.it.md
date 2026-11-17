@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.2.1 · **Ultimo aggiornamento:** 2026-11-15
+**Versione:** 2.2.2 · **Ultimo aggiornamento:** 2026-11-17
 
 **Stato:** sperimentale · **Offline:** completo
 
@@ -69,6 +69,7 @@ Su `http://` (relay locale) i browser bloccano la fotocamera: la scansione del Q
 src/app.html          sorgente dell’app (con il marcatore /*__RELAY_SRC__*/)
 fascicul-releu.js     il relay (sorgente unica; incorporato nell’app)
 build.js              node build.js  →  fascicul.html (file unico) + index.html (copia identica, per GitHub Pages)
+(dopo release del kit)node build.js --from-index  →  riscrive src/app.html a partire da index.html (dopo che il kit ha modificato index.html sul posto)
 ```
 
 Test eseguiti durante lo sviluppo (Chromium + Playwright): abbinamento tramite relay con candidati mDNS attivi, approvazione / rifiuto, partecipanti ostili (messaggi malformati, inondazione, spoofing, immagini in volo), riconnessione automatica, heartbeat, fotocamera in diretta con dispositivo finto, decodifica di codici QR renderizzati con OpenCV, sessione salvata/caricata.

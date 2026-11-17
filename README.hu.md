@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 2.2.1 · **Utolsó frissítés:** 2026-11-15
+**Verzió:** 2.2.2 · **Utolsó frissítés:** 2026-11-17
 
 **Állapot:** kísérleti · **Offline:** teljes
 
@@ -69,6 +69,7 @@ A relé kiírja a címet (általában `http://192.168.43.1:8080`), és újra ki�
 src/app.html          az alkalmazás forrása (a /*__RELAY_SRC__*/ jelölővel)
 fascicul-releu.js     az átjátszó (egyetlen forrás; beágyazódik az alkalmazásba)
 build.js              node build.js  →  fascicul.html (egyetlen fájl) + index.html (azonos másolat, a GitHub Pagesnek)
+(kit-kiadás után)     node build.js --from-index  →  újraírja a src/app.html-t az index.html-ből (miután a kit helyben módosította az index.html-t)
 ```
 
 A fejlesztés során elvégzett tesztek (Chromium + Playwright): párosítás a reléen keresztül aktív mDNS-jelöltekkel, jóváhagyás / elutasítás, ellenséges résztvevők (hibás formátumú üzenetek, elárasztás, megszemélyesítés, úton lévő képek), automatikus újracsatlakozás, heartbeat, élő kamera hamis eszközzel, OpenCV-vel megjelenített QR-kódok dekódolása, mentett/betöltött munkamenet.

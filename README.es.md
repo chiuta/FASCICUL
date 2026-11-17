@@ -2,7 +2,7 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 2.2.1 · **Última actualización:** 2026-11-15
+**Versión:** 2.2.2 · **Última actualización:** 2026-11-17
 
 **Estado:** experimental · **Sin conexión:** completo
 
@@ -69,6 +69,7 @@ Con `http://` (relé local) los navegadores bloquean la cámara: el escaneo de Q
 src/app.html          fuente de la aplicación (con el marcador /*__RELAY_SRC__*/)
 fascicul-releu.js     el relé (fuente única; se incrusta en la aplicación)
 build.js              node build.js  →  fascicul.html (archivo único) + index.html (copia idéntica, para GitHub Pages)
+(tras versión del kit)node build.js --from-index  →  reescribe src/app.html a partir de index.html (cuando el kit ha modificado index.html in situ)
 ```
 
 Pruebas realizadas durante el desarrollo (Chromium + Playwright): emparejamiento mediante relé con candidatos mDNS activos, aprobación / rechazo, participantes hostiles (mensajes malformados, inundación, suplantación, imágenes en tránsito), reconexión automática, heartbeat, cámara en directo con dispositivo falso, decodificación de códigos QR renderizados con OpenCV, sesión guardada/cargada.

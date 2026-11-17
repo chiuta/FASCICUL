@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.2.1 · **Ultima actualizare:** 2026-11-15
+**Versiune:** 2.2.2 · **Ultima actualizare:** 2026-11-17
 
 **Stare:** experimental · **Offline:** complet după încărcarea paginii; legătura dintre telefoane merge doar în aceeași rețea locală (fără STUN/TURN)
 
@@ -99,6 +99,7 @@ Pagina de start are acum un **ghid animat pas cu pas** pliabil (5 pași, Înapoi
 src/app.html          sursa aplicației (cu marcajul /*__RELAY_SRC__*/)
 fascicul-releu.js     releul (sursa unică; se încorporează în aplicație)
 build.js              node build.js  →  fascicul.html (un singur fișier) + index.html (copie identică, pentru GitHub Pages)
+(după lansarea kit)   node build.js --from-index  →  rescrie src/app.html din index.html (după ce kitul a modificat index.html pe loc)
 ```
 
 Teste efectuate în dezvoltare (Chromium + Playwright): împerechere prin releu cu candidate mDNS active, aprobare / respingere, participanți ostili (mesaje malformate, inundație, spoofing, imagini în zbor), reconectare automată, heartbeat, cameră live cu dispozitiv fals, decodarea codurilor QR randate cu OpenCV, sesiune salvată/încărcată.
